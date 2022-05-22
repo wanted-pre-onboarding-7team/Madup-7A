@@ -1,0 +1,8 @@
+export { ReactComponent as Logo } from './logo.svg'
+export { ReactComponent as AlarmIcon } from './alarm.svg'
+export { ReactComponent as ArrowIcon } from './arrow.svg'
+export { ReactComponent as ArrowButton } from './arrowButton.svg'
+export { ReactComponent as DashBoardIcon } from './dashboard.svg'
+export { ReactComponent as GraphIcon } from './graph.svg'
+export { ReactComponent as SettingIcon } from './setting.svg'
+export { ReactComponent as ProfileIcon } from './profile.svg'
