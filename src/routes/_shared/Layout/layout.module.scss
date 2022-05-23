@@ -1,0 +1,32 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+
+.container {
+  position: relative;
+  display: flex;
+  height: 100vh;
+
+  .aside {
+    z-index: levels.$GNB;
+    width: 320px;
+    padding: 0 40px;
+    background: colors.$BG_WHITE;
+    border-right: 1px solid colors.$BORDER;
+    box-shadow: 4px 0 10px colors.$SHADOW;
+  }
+
+  .wrapper {
+    position: relative;
+    min-width: calc(100vw - 320px);
+    padding: 0 40px 40px 24px;
+    background: colors.$BG_G;
+  }
+
+  .header {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 25px;
+    line-height: 80px;
+    border-bottom: 1px solid colors.$BORDER;
+  }
+}

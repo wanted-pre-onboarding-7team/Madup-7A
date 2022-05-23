@@ -1,0 +1,15 @@
+@use '/src/styles/constants/colors';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  svg {
+    margin-right: 30px;
+  }
+
+  svg:last-of-type {
+    margin-right: 10px;
+  }
+}

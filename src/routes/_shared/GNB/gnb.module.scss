@@ -1,0 +1,48 @@
+@use '/src/styles/constants/colors';
+
+.gnb {
+  .logo {
+    height: 150px;
+  }
+
+  .title {
+    margin-bottom: 12px;
+    color: colors.$TEXT_SECONDARY;
+  }
+
+  .dropdown {
+    height: 60px;
+    margin-bottom: 50px;
+    border: 1px solid colors.$BORDER;
+    border-radius: 10px;
+  }
+
+  .navList {
+    li {
+      position: relative;
+      width: 100%;
+
+      a {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        color: colors.$TEXT_PRIMARY;
+        border-radius: 10px;
+      }
+
+      .navIcon {
+        margin-right: 12px;
+      }
+    }
+
+    .isActive {
+      color: colors.$PRIMARY;
+      background: colors.$BG_ACTIVE;
+
+      .navIcon {
+        fill: colors.$PRIMARY;
+      }
+    }
+  }
+}
