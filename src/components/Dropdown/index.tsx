@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useState, useRef, useEffect } from 'react'
 import { cx } from 'styles'
 import styles from './dropdown.module.scss'
 
@@ -9,12 +9,14 @@ interface Props {
   style: {
     padding: string
     height: string
+    fontSize: string
   }
 }
 
 const Dropdown = ({ list, style }: Props) => {
   const [selected, setSeleted] = useState(list[0])
   const [isListOpen, setIsListOpen] = useState(false)
+  const outsideRef = useRef<HTMLDivElement>(null)
 
   const isSelected = (item: string) => {
     if (item === selected) return true
@@ -33,6 +35,19 @@ const Dropdown = ({ list, style }: Props) => {
     setIsListOpen(false)
   }
 
+  function handleClickOutside(e: any) {
+    if (outsideRef.current && !outsideRef.current.contains(e.target)) {
+      setIsListOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [outsideRef])
+
   const dropdownList = list.map((item) => (
     <li
       key={item}
@@ -46,14 +61,14 @@ const Dropdown = ({ list, style }: Props) => {
   ))
 
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} ref={outsideRef}>
       <button
         type='button'
         className={styles.selected}
         onClick={handleSelectedClick}
         style={{ padding: style.padding }}
       >
-        <input className={styles.text} value={selected} readOnly />
+        <input className={styles.text} value={selected} readOnly style={{ fontSize: style.fontSize }} />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />
       </button>
       {isListOpen && (

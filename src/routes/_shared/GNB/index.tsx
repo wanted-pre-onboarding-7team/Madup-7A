@@ -5,7 +5,7 @@ import Dropdown from 'components/Dropdown'
 import Navigator from './Navigator'
 
 const LIST = ['매드업', '서비스 추가하기']
-const DROPDOWN_STYLE = { padding: '20px', height: '44px' }
+const DROPDOWN_STYLE = { padding: '20px', height: '44px', fontSize: '16px' }
 
 const GNB = () => {
   return (
