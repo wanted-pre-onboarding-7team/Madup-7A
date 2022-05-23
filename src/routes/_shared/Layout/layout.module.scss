@@ -4,9 +4,10 @@
 .container {
   position: relative;
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
   .aside {
+    position: relative;
     z-index: levels.$GNB;
     width: 320px;
     padding: 0 40px;
@@ -18,7 +19,7 @@
   .wrapper {
     position: relative;
     min-width: calc(100vw - 320px);
-    padding: 0 40px 40px 24px;
+    padding: 0 40px 40px;
     background: colors.$BG_G;
   }
 
