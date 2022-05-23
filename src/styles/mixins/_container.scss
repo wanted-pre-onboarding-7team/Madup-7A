@@ -1,0 +1,24 @@
+@use '/src/styles/constants/colors';
+
+@mixin dataTitle() {
+  height: 80px;
+  padding: 0 40px;
+  margin-bottom: 20px;
+  font-size: 26px;
+  line-height: 80px;
+}
+
+@mixin dataSubTitle() {
+  height: 60px;
+  padding-left: 40px;
+  font-size: 16px;
+  line-height: 60px;
+}
+
+@mixin dataContainer() {
+  padding: 40px;
+  margin-bottom: 60px;
+  background: colors.$BG_WHITE;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px colors.$SHADOW;
+}
