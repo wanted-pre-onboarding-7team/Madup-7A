@@ -1,7 +1,101 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/container';
 
-.app {
+.title {
+  @include container.dataTitle;
+}
+
+.cardsContainer {
+  height: auto;
+  @include container.dataContainer;
+  background-color: colors.$BG_WHITE;
+
+  .cardsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 40px;
+
+    .createButton {
+      color: colors.$BG_WHITE;
+      background-color: colors.$PRIMARY;
+    }
+  }
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 10px;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.cardsWrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  margin: -8px -8px 8px;
+
+  .cardContainer {
+    width: calc((100% - 48px) / 3);
+    height: 420px;
+    padding: 16px;
+    margin: 8px;
+    cursor: pointer;
+    border: 1px solid colors.$BORDER_TABLE;
+    border-radius: 20px;
+    transition: border 0.1s;
+
+    .contentBox {
+      margin-top: 20px;
+
+      .contentTitle {
+        padding-bottom: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 1px solid colors.$BORDER_TABLE;
+      }
+
+      .contentBody {
+        li {
+          display: flex;
+          height: 40px;
+          padding: 13px 0;
+          font-size: 12px;
+          color: colors.$TEXT_SECONDARY;
+          border-bottom: 1px solid colors.$BORDER_TABLE;
+
+          p:first-child {
+            width: calc(100% / 3);
+            font-weight: 500;
+          }
+
+          p:last-child {
+            width: calc(100% / 3 * 2);
+            font-weight: bold;
+            color: colors.$TEXT_PRIMARY;
+          }
+        }
+      }
+
+      .updateButton {
+        margin-top: 20px;
+        border: 1px solid colors.$BORDER;
+      }
+    }
+  }
+}
+
+.cardContainer:hover {
+  border: 1px solid colors.$PRIMARY;
+}
+
+.updateButton:hover {
+  opacity: 0.5;
+}
+
+.createButton:hover {
+  opacity: 0.5;
 }
