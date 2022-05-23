@@ -2,6 +2,9 @@ import { MouseEvent, useState, useRef, useEffect } from 'react'
 import { cx } from 'styles'
 import styles from './dropdown.module.scss'
 
+import { useSetRecoilState } from 'recoil'
+import { adStatusFilter } from 'state/adList'
+
 import { ArrowButton } from 'assets/svgs'
 
 interface Props {
@@ -18,6 +21,8 @@ const Dropdown = ({ list, style }: Props) => {
   const [isListOpen, setIsListOpen] = useState(false)
   const outsideRef = useRef<HTMLDivElement>(null)
 
+  const setAdStatus = useSetRecoilState(adStatusFilter)
+
   const isSelected = (item: string) => {
     if (item === selected) return true
 
@@ -30,6 +35,10 @@ const Dropdown = ({ list, style }: Props) => {
 
   const handleItemClick = (e: MouseEvent<HTMLButtonElement>) => {
     const item = e.currentTarget.title
+
+    if (item === '전체 광고' || item === '진행중' || item === '중단됨') {
+      setAdStatus(item)
+    }
 
     setSeleted(item)
     setIsListOpen(false)
