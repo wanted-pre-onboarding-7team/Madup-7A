@@ -1,4 +1,5 @@
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useState, useRef } from 'react'
+import { useClickAway } from 'react-use'
 import { cx } from 'styles'
 import styles from './dropdown.module.scss'
 
@@ -9,12 +10,16 @@ interface Props {
   style: {
     padding: string
     height: string
+    width: string
+    fontSize: string
   }
+  onClick: (item: string) => void
 }
 
-const Dropdown = ({ list, style }: Props) => {
+const Dropdown = ({ list, style, onClick }: Props) => {
   const [selected, setSeleted] = useState(list[0])
   const [isListOpen, setIsListOpen] = useState(false)
+  const outsideRef = useRef<HTMLInputElement>(null)
 
   const isSelected = (item: string) => {
     if (item === selected) return true
@@ -29,15 +34,21 @@ const Dropdown = ({ list, style }: Props) => {
   const handleItemClick = (e: MouseEvent<HTMLButtonElement>) => {
     const item = e.currentTarget.title
 
+    onClick(item)
+
     setSeleted(item)
     setIsListOpen(false)
   }
+
+  useClickAway(outsideRef, () => {
+    setIsListOpen(false)
+  })
 
   const dropdownList = list.map((item) => (
     <li
       key={item}
       className={cx({ [styles.selectedItem]: isSelected(item) })}
-      style={{ height: style.height, lineHeight: style.height }}
+      style={{ height: style.height, lineHeight: style.height, width: style.width }}
     >
       <button type='button' title={item} onClick={handleItemClick}>
         {item}
@@ -46,14 +57,14 @@ const Dropdown = ({ list, style }: Props) => {
   ))
 
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} ref={outsideRef}>
       <button
         type='button'
         className={styles.selected}
         onClick={handleSelectedClick}
         style={{ padding: style.padding }}
       >
-        <input className={styles.text} value={selected} readOnly />
+        <input className={styles.text} value={selected} readOnly style={{ fontSize: style.fontSize }} />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />
       </button>
       {isListOpen && (
