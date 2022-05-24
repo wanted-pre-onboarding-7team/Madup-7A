@@ -26,6 +26,9 @@
       "error",
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
+    "prettier/prettier": ["error",{
+      "endOfLine": "auto"}
+    ],
     "react/jsx-indent": "warn",
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "warn",

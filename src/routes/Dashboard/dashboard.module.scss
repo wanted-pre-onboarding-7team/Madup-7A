@@ -1,7 +1,12 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/container';
 
 .app {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.adsContainer {
+  @include container.dataContainer;
 }
