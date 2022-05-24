@@ -8,13 +8,14 @@ const LIST = ['매드업', '서비스 추가하기']
 const DROPDOWN_STYLE = { padding: '20px', height: '44px', fontSize: '16px' }
 
 const GNB = () => {
+  const handleClick = () => {}
   return (
     <div className={styles.gnb}>
       <Logo className={styles.logo} />
       <div className={styles.underline} />
       <div className={styles.wrapper}>
         <span className={styles.title}>서비스</span>
-        <Dropdown list={LIST} style={DROPDOWN_STYLE} />
+        <Dropdown list={LIST} style={DROPDOWN_STYLE} onClick={handleClick} />
       </div>
       <div className={styles.wrapper}>
         <span className={styles.title}>광고 센터</span>
