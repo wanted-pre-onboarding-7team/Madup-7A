@@ -31,7 +31,11 @@ const dateSetting = (status: string, startDate: string, endDate: string | null) 
 
 const budgetSetting = (budget: number) => {
   if (budget > 100000) {
-    const tenThousandUnits = `${Math.floor(budget / 10000)}만원`
+    if (budget % 10000 === 0) {
+      const tenThousandUnits = `${Math.floor(budget / 10000)}만 `
+      return tenThousandUnits
+    }
+    const tenThousandUnits = `${Math.floor(budget / 10000)}만 ${Math.floor((budget % 10000) / 1000)}천원`
     return tenThousandUnits
   }
 
