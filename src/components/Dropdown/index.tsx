@@ -6,23 +6,25 @@ import styles from './dropdown.module.scss'
 import { ArrowButton } from 'assets/svgs'
 
 interface Props {
-  list: Array<string>
+  list: Array<{
+    id: string
+    text: string
+    value?: string
+  }>
   style: {
-    padding: string
-    height: string
     fontSize: string
   }
+  size: 'large' | 'small'
   onClick: (item: string) => void
 }
 
-const Dropdown = ({ list, style, onClick }: Props) => {
-  const [selected, setSeleted] = useState(list[0])
+const Dropdown = ({ list, style, size, onClick }: Props) => {
+  const [selected, setSeleted] = useState(list[0].text)
   const [isListOpen, setIsListOpen] = useState(false)
   const outsideRef = useRef<HTMLInputElement>(null)
 
   const isSelected = (item: string) => {
     if (item === selected) return true
-
     return false
   }
 
@@ -44,25 +46,16 @@ const Dropdown = ({ list, style, onClick }: Props) => {
   })
 
   const dropdownList = list.map((item) => (
-    <li
-      key={item}
-      className={cx({ [styles.selectedItem]: isSelected(item) })}
-      style={{ height: style.height, lineHeight: style.height }}
-    >
-      <button type='button' title={item} onClick={handleItemClick}>
-        {item}
+    <li key={item.text} className={cx(styles.dropdownItem, { [styles.selectedItem]: isSelected(item.text) })}>
+      <button type='button' title={item.text} onClick={handleItemClick}>
+        {item.text}
       </button>
     </li>
   ))
 
   return (
-    <div className={styles.dropdown} ref={outsideRef}>
-      <button
-        type='button'
-        className={styles.selected}
-        onClick={handleSelectedClick}
-        style={{ padding: style.padding }}
-      >
+    <div className={cx(styles.dropdown, styles[size])} ref={outsideRef}>
+      <button type='button' className={styles.selected} onClick={handleSelectedClick}>
         <input className={styles.text} value={selected} readOnly style={{ fontSize: style.fontSize }} />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />
       </button>

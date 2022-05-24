@@ -6,8 +6,22 @@ import { filteredTodoListState, adStatusFilter } from 'state/adList'
 import AdsCard from './AdsCard'
 import Dropdown from 'components/Dropdown'
 
-const LIST = ['전체 광고', '진행중', '중단됨']
-const DROPDOWN_STYLE = { padding: '12px 20px', width: '135px', height: '38px', fontSize: '14px' }
+const LIST = [
+  {
+    id: '1',
+    text: '전체 광고',
+  },
+  {
+    id: '2',
+    text: '진행중',
+  },
+  {
+    id: '3',
+    text: '중단됨',
+  },
+]
+
+const DROPDOWN_STYLE = { fontSize: '14px' }
 
 const AdsManage = () => {
   const AD_DATA_LIST = useRecoilValue(filteredTodoListState)
@@ -25,7 +39,7 @@ const AdsManage = () => {
       <div className={styles.cardsContainer}>
         <div className={styles.cardsHeader}>
           <div className={styles.dropdownBox}>
-            <Dropdown list={LIST} style={DROPDOWN_STYLE} onClick={handleStatusClick} />
+            <Dropdown list={LIST} style={DROPDOWN_STYLE} size='small' onClick={handleStatusClick} />
           </div>
           <button type='button' className={`${styles.buttonCommon} ${styles.createButton}`}>
             광고 만들기
