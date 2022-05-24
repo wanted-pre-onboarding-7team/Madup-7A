@@ -1,0 +1,110 @@
+/* stylelint-disable selector-class-pattern */
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+
+.react-datepicker__input-container {
+  display: inline-block;
+
+  input {
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    cursor: pointer;
+  }
+}
+
+.react-datepicker-popper {
+  position: absolute;
+  top: unset !important;
+  right: 40px !important;
+  bottom: unset !important;
+  left: unset !important;
+  z-index: levels.$CALENDER;
+  background: colors.$BG_WHITE;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 15%) 0 10px 20px;
+  transform: unset !important;
+}
+
+.react-datepicker-popper[data-placement^='bottom'] {
+  padding: 0;
+}
+
+.react-datepicker__header {
+  position: relative;
+  height: 80px;
+  padding: 8px 0;
+  text-align: center;
+  background: inherit;
+  border: unset;
+}
+
+.react-datepicker__header .react-datepicker__day-names {
+  margin-top: 10px;
+}
+
+.react-datepicker__month-container {
+  margin: 10px 30px;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+
+  &:hover {
+    border-radius: unset;
+  }
+}
+
+.react-datepicker__week {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.react-datepicker__day--outside-month,
+.react-datepicker__day--disabled {
+  color: colors.$TEXT_SECONDARY;
+}
+
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end,
+.react-datepicker__day--selecting-range-start {
+  z-index: levels.$CALENDER !important;
+  color: colors.$TEXT_WHITE !important;
+  background: colors.$PRIMARY !important;
+}
+
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--range-start, .react-datepicker__day--range-end),
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  position: relative;
+  z-index: levels.$CALENDER_SELECTING;
+  color: colors.$CALENDER_RANGE_TEXT;
+  background: colors.$CALENDER_RANGE_BG;
+  border-radius: unset;
+
+  &:hover {
+    background: colors.$CALENDER_RANGE_BG;
+    border-radius: unset;
+  }
+}
+
+.react-datepicker__day--keyboard-selected {
+  background: inherit;
+
+  &:hover {
+    background: colors.$CALENDER_RANGE_BG;
+  }
+}
