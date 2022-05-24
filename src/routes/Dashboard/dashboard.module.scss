@@ -1,7 +1,10 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/container';
 
-.app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.subTitle {
+  @include container.dataSubTitle;
+}
+
+.container {
+  @include container.dataContainer;
 }
