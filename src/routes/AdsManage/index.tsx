@@ -21,8 +21,6 @@ const LIST = [
   },
 ]
 
-const DROPDOWN_STYLE = { fontSize: '14px' }
-
 const AdsManage = () => {
   const AD_DATA_LIST = useRecoilValue(filteredTodoListState)
   const setAdStatus = useSetRecoilState(adStatusFilter)
@@ -39,7 +37,7 @@ const AdsManage = () => {
       <div className={styles.cardsContainer}>
         <div className={styles.cardsHeader}>
           <div className={styles.dropdownBox}>
-            <Dropdown list={LIST} style={DROPDOWN_STYLE} size='small' onClick={handleStatusClick} />
+            <Dropdown list={LIST} size='small' onClick={handleStatusClick} />
           </div>
           <button type='button' className={`${styles.buttonCommon} ${styles.createButton}`}>
             광고 만들기

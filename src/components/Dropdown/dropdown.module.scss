@@ -14,7 +14,7 @@
     border-radius: 10px;
 
     input {
-      width: 100%;
+      width: 70%;
       cursor: pointer;
     }
 
@@ -63,12 +63,16 @@
     height: 40px;
 
     .selected {
-      padding: 12px 20px;
+      padding: 12px 14px;
     }
 
     .dropdownItem {
       height: 38px;
       line-height: 38px;
+    }
+
+    .text {
+      font-size: 14px;
     }
   }
 
@@ -84,5 +88,25 @@
       height: 44px;
       line-height: 44px;
     }
+
+    .text {
+      font-size: 16px;
+    }
+  }
+
+  .greenDot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: colors.$GRAPH_02;
+    border-radius: 50%;
+  }
+
+  .blueDot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: colors.$GRAPH_01;
+    border-radius: 50%;
   }
 }
