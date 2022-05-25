@@ -9,9 +9,10 @@ import {
   VictoryLabel,
 } from 'victory'
 import dayjs from 'dayjs'
+import _ from 'lodash'
 
 import { IChart } from 'types/trend'
-import { ChangeText, getDates } from '../utils'
+import { ChangeText, getDates } from '../utils/chartUtils'
 import { useRecoilValue } from 'recoil'
 import { dateRangeState } from '../states'
 import { useMemo } from 'react'
@@ -25,20 +26,19 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
   const data = chartData
 
   let dateRange = useRecoilValue(dateRangeState)
-  dateRange = dateRange.filter((a, i) => {
-    return dateRange.indexOf(a) === i
-  })
-
-  const selectedDate = getDates(dateRange)
-
-  // find maxima for normalizing data
+  dateRange = _.uniq(dateRange)
+  let selectedDate = getDates(dateRange)
   const maxima = data.map((dataset) => {
     if (dataset.length === 0) return 0
     return Math.max(...dataset.map((d) => d.y))
   })
 
+  if (dateType === 'week') {
+    selectedDate = dateRange.map((date) => dayjs(date))
+  }
+
   const totalCount = useMemo(() => {
-    return Math.max(...data.map((d) => d.length)) < 5 ? Math.max(...data.map((d) => d.length)) : 5
+    return Math.max(...data.map((d) => d.length))
   }, [data])
   const xOffsets = [50, 910]
   const tickPadding = [38, -60]
@@ -63,6 +63,7 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
         domainPadding={totalCount === 1 ? { x: [1400, 1200] } : { x: 30 }}
         {...options}
         scale={{ x: 'time' }}
+        singleQuadrantDomainPadding={{ x: false }}
       >
         <VictoryAxis
           tickFormat={(x) => {

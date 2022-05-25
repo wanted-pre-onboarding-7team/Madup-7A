@@ -1,5 +1,5 @@
 import styles from './dashboard.module.scss'
-import TotalAdsChart from './totalAdsChart'
+import TotalAdsChart from './TotalAdsChart'
 
 import Title from './Title'
 import DataCard from './DataCard'
