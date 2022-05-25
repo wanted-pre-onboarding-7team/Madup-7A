@@ -56,10 +56,8 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
   return (
     <div className={cx(styles.dropdown, styles[size])} ref={outsideRef}>
       <button type='button' className={styles.selected} onClick={handleSelectedClick}>
-        {greenDot || blueDot ? (
+        {(greenDot || blueDot) && (
           <div className={cx({ [styles.blueDot]: blueDot }, { [styles.greenDot]: greenDot })} />
-        ) : (
-          ''
         )}
         <input className={styles.text} value={selected} readOnly />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />
