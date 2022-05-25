@@ -11,9 +11,10 @@ import {
 import dayjs from 'dayjs'
 
 import { IChart } from 'types/trend'
-import { ChangeText, getDays } from '../utils'
+import { ChangeText, getDates } from '../utils'
 import { useRecoilValue } from 'recoil'
 import { dateRangeState } from '../states'
+import { useMemo } from 'react'
 
 interface prop {
   chartData: IChart[][]
@@ -22,7 +23,7 @@ interface prop {
 export const LineChart = ({ chartData, type }: prop) => {
   const data = chartData
   const datavalue = useRecoilValue(dateRangeState)
-  const selectedDate = getDays(datavalue)
+  const selectedDate = getDates(datavalue)
 
   // find maxima for normalizing data
   const maxima = data.map((dataset) => {
@@ -30,9 +31,9 @@ export const LineChart = ({ chartData, type }: prop) => {
     return Math.max(...dataset.map((d) => d.y))
   })
 
-  // const totalCount = useMemo(() => {
-  //   return Math.max(...data.map((d) => d.length)) < 5 ? Math.max(...data.map((d) => d.length)) : 5
-  // }, [data])
+  const totalCount = useMemo(() => {
+    return Math.max(...data.map((d) => d.length)) < 5 ? Math.max(...data.map((d) => d.length)) : 5
+  }, [data])
   const xOffsets = [50, 910]
   const tickPadding = [38, -60]
   const anchors = ['start', 'end']
@@ -49,6 +50,8 @@ export const LineChart = ({ chartData, type }: prop) => {
     },
   }
 
+  console.log('data:', datavalue, selectedDate)
+
   return (
     <div>
       <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 30 }} {...options} scale={{ x: 'time' }}>
@@ -56,7 +59,8 @@ export const LineChart = ({ chartData, type }: prop) => {
           tickFormat={(x) => {
             return dayjs(x).format('MM월 DD일')
           }}
-          tickCount={5}
+          tickCount={7}
+          tickValues={selectedDate}
           style={{
             axis: { stroke: 'transparent' },
             tickLabels: { fill: '#94A2AD' },
@@ -70,7 +74,7 @@ export const LineChart = ({ chartData, type }: prop) => {
           return (
             <VictoryAxis
               dependentAxis
-              key={xOffsets[i]}
+              key={`key-${type[i]}-1`}
               offsetX={xOffsets[i]}
               tickValues={[0.2, 0.4, 0.6, 0.8, 1, 1.2]}
               tickFormat={(t) => {
@@ -96,7 +100,22 @@ export const LineChart = ({ chartData, type }: prop) => {
             return null
           }
           return (
-            <VictoryGroup key={xOffsets[i]}>
+            <VictoryGroup
+              key={`key-group-${type[i]}-2`}
+              labelComponent={
+                <VictoryTooltip
+                  style={{ fill: 'white', fontSize: 20, textAnchor: 'middle' }}
+                  flyoutStyle={{
+                    stroke: '#3a474e',
+                    fill: '#3a474e',
+                    margin: 10,
+                  }}
+                  flyoutWidth={150}
+                  dx={60}
+                  dy={60}
+                />
+              }
+            >
               <VictoryLine
                 data={d}
                 y={(datum) => datum.y / maxima[i]}
@@ -105,22 +124,9 @@ export const LineChart = ({ chartData, type }: prop) => {
               <VictoryScatter
                 data={d}
                 y={(datum) => datum.y / maxima[i]}
-                style={{ data: { fill: 'transparent' } }}
-                size={20}
+                style={{ data: totalCount === 1 ? { fill: colors[i] } : { fill: 'transparent' } }}
+                size={5}
                 labels={({ datum }) => ChangeText(datum.y, type[i])}
-                labelComponent={
-                  <VictoryTooltip
-                    style={{ fill: 'white', fontSize: 20, textAnchor: 'middle' }}
-                    flyoutStyle={{
-                      stroke: '#3a474e',
-                      fill: '#3a474e',
-                      margin: 10,
-                    }}
-                    flyoutWidth={150}
-                    dx={60}
-                    dy={60}
-                  />
-                }
                 events={[
                   {
                     target: 'data',

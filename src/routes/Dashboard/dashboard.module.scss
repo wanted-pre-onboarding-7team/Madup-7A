@@ -1,16 +1,80 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/container';
 
-.container {
-  .title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
+.title {
+  @include container.dataTitle;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    h1 {
-      font-size: 26px;
-      font-weight: 900;
+  h1 {
+    font-size: 26px;
+    font-weight: 900;
+  }
+}
+
+.subTitle {
+  @include container.dataSubTitle;
+}
+
+.container {
+  @include container.dataContainer;
+
+  .dataCards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    row-gap: 20px;
+    column-gap: 22px;
+    align-items: center;
+    overflow: scroll;
+
+    .dataCard {
+      display: flex;
+      justify-content: space-between;
+      height: 79px;
+      padding: 18px 40px;
+      background: colors.$BG_WHITE;
+      border: 0.5px solid colors.$BORDER_TABLE;
+      border-radius: 10px;
+
+      dl {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      dt {
+        font-size: 12px;
+        color: colors.$TEXT_SECONDARY;
+      }
+
+      dd {
+        font-weight: 600;
+      }
+
+      .comparison {
+        align-self: flex-end;
+        font-size: 12px;
+
+        svg {
+          path {
+            fill: colors.$ARROW_DECREASE;
+          }
+        }
+
+        .increased {
+          transform: rotate(-180deg);
+
+          path {
+            fill: colors.$ARROW_INCREASE;
+          }
+        }
+
+        span {
+          margin-left: 5px;
+          color: colors.$TEXT_SECONDARY;
+        }
+      }
     }
   }
 }

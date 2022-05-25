@@ -8,14 +8,14 @@ const LIST = [
   {
     id: '1',
     text: '매드업',
+    value: 'med_1',
   },
   {
     id: '2',
     text: '서비스 추가하기',
+    value: 'med_2',
   },
 ]
-
-const DROPDOWN_STYLE = { fontSize: '16px' }
 
 const GNB = () => {
   const handleClick = () => {}
@@ -25,7 +25,7 @@ const GNB = () => {
       <div className={styles.underline} />
       <div className={styles.wrapper}>
         <span className={styles.title}>서비스</span>
-        <Dropdown list={LIST} style={DROPDOWN_STYLE} size='large' onClick={handleClick} />
+        <Dropdown list={LIST} size='large' onClick={handleClick} />
       </div>
       <div className={styles.wrapper}>
         <span className={styles.title}>광고 센터</span>

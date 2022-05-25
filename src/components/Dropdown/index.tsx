@@ -11,14 +11,13 @@ interface Props {
     text: string
     value?: string
   }>
-  style: {
-    fontSize: string
-  }
+  greenDot?: boolean
+  blueDot?: boolean
   size: 'large' | 'small'
   onClick: (item: string) => void
 }
 
-const Dropdown = ({ list, style, size, onClick }: Props) => {
+const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
   const [selected, setSeleted] = useState(list[0].text)
   const [isListOpen, setIsListOpen] = useState(false)
   const outsideRef = useRef<HTMLInputElement>(null)
@@ -56,7 +55,12 @@ const Dropdown = ({ list, style, size, onClick }: Props) => {
   return (
     <div className={cx(styles.dropdown, styles[size])} ref={outsideRef}>
       <button type='button' className={styles.selected} onClick={handleSelectedClick}>
-        <input className={styles.text} value={selected} readOnly style={{ fontSize: style.fontSize }} />
+        {greenDot || blueDot ? (
+          <div className={cx({ [styles.blueDot]: blueDot }, { [styles.greenDot]: greenDot })} />
+        ) : (
+          ''
+        )}
+        <input className={styles.text} value={selected} readOnly />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />
       </button>
       {isListOpen && (

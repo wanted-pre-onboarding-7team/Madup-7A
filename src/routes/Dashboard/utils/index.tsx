@@ -21,6 +21,17 @@ export const getDays = ([startDate, stopDate]: string[]): string[] => {
   return dateArray
 }
 
+export const getDates = ([startDate, stopDate]: string[]): dayjs.Dayjs[] => {
+  const dateArray = []
+  let currentDate = dayjs(startDate)
+  const lastDate = dayjs(stopDate)
+  while (currentDate <= lastDate) {
+    dateArray.push(dayjs(currentDate))
+    currentDate = dayjs(currentDate).add(1, 'days')
+  }
+  return dateArray
+}
+
 const findTargetValue = (target: string, obj: IDaily) => {
   const targetObejct =
     {

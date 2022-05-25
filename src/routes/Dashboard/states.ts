@@ -15,6 +15,11 @@ export const sencondFilterState = atom<string>({
   default: 'ctr',
 })
 
+export const dateFilterState = atom<string>({
+  key: '#dateFilterState',
+  default: '일간',
+})
+
 // export const firstChartDataState = atom<IChart[] | []>({
 //   key: '#firstChartDataState',
 //   default: [],

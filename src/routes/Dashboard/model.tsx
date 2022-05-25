@@ -58,13 +58,13 @@ export const CHART_MENU_LIST = [
 
 export const DATE_MENU_LIST = [
   {
-    text: '주간',
-    value: 'week',
-    id: 'week_1',
-  },
-  {
     text: '일간',
     value: 'day',
     id: 'day_1',
+  },
+  {
+    text: '주간',
+    value: 'week',
+    id: 'week_1',
   },
 ]
