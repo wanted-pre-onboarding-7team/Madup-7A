@@ -5,9 +5,9 @@ import styles from './mediaTable.module.scss'
 import { getRoas } from 'utils/num'
 
 import { dateRangeState } from '../../states'
-import { getDays } from '../../utils'
-import { getTableValueString, getTotalValue } from '../../cardUtils'
-import { channelGroupBy, findChannel, getTotalRevenue, valueGroupBy } from './utils'
+import { getDays } from '../../utils/chartUtils'
+import { getTableValueString, getTotalValue } from '../../utils/cardUtils'
+import { channelGroupBy, findChannel, getTotalRevenue, valueGroupBy } from '../../utils/tableUtils'
 
 const dataStructure = [
   { foot: '광고비', head: '광고비' },
