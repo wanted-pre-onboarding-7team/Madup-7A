@@ -67,14 +67,26 @@ const TotalAdsChart = () => {
       <div className={styles.dropdownContainer}>
         <div className={styles.filterDropdown}>
           <div>
-            <Dropdown list={firstDropDownList} blueDot onClick={setFirstFilterValue} size='small' />
+            <Dropdown
+              list={firstDropDownList}
+              blueDot
+              onClick={setFirstFilterValue}
+              size='small'
+              initValue={firstFilterValue}
+            />
           </div>
           <div>
-            <Dropdown list={secondDropDownList} greenDot onClick={setSecondFilterValue} size='small' />
+            <Dropdown
+              list={secondDropDownList}
+              greenDot
+              onClick={setSecondFilterValue}
+              size='small'
+              initValue={secondFilterValue}
+            />
           </div>
         </div>
         <div>
-          <Dropdown list={DATE_MENU_LIST} onClick={setDateFilterValue} size='small' />
+          <Dropdown list={DATE_MENU_LIST} onClick={setDateFilterValue} size='small' initValue={dateFilterValue} />
         </div>
       </div>
       <LineChart chartData={totalChartValue} type={[firstFilterValue, secondFilterValue]} dateType={dateFilterValue} />
