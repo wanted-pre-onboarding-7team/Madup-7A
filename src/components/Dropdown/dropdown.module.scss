@@ -40,6 +40,8 @@
       padding: 4px 0;
 
       li {
+        display: flex;
+        align-items: center;
         padding: 5px 20px;
 
         button {
@@ -53,6 +55,34 @@
           font-weight: bold;
         }
       }
+    }
+  }
+
+  &.small {
+    width: 123px;
+    height: 40px;
+
+    .selected {
+      padding: 12px 20px;
+    }
+
+    .dropdownItem {
+      height: 38px;
+      line-height: 38px;
+    }
+  }
+
+  &.large {
+    width: 240px;
+    height: 60px;
+
+    .selected {
+      padding: 20px;
+    }
+
+    .dropdownItem {
+      height: 44px;
+      line-height: 44px;
     }
   }
 }

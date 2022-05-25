@@ -16,7 +16,7 @@ const findTargetValue = (target: string, obj: IDaily) => {
   const targetObejct =
     {
       imp: obj.imp,
-      click: obj.imp,
+      click: obj.click,
       cost: obj.cost,
       conv: obj.conv,
       conValue: obj.convValue,
@@ -51,6 +51,7 @@ const findTargetValue = (target: string, obj: IDaily) => {
   //   default:
   //     return 0
   // }
+
   return targetObejct
 }
 

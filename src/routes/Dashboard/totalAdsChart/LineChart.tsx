@@ -10,21 +10,16 @@ import {
 } from 'victory'
 import { ScalePropType } from 'victory-core'
 import dayjs from 'dayjs'
+import { useRecoilValue } from 'recoil'
+import { totalChartDataState } from '../states'
+import { IChart } from 'types/trend'
+import { useEffect } from 'react'
 
-export const LineChart = ({ chartData }: any) => {
-  let data = [
-    [
-      { x: dayjs('2022-02-01'), y: 100000 },
-      { x: dayjs('2022-02-02'), y: 20000 },
-      // { x: dayjs('2022-02-03'), y: 20000 },
-    ],
-    [
-      { x: dayjs('2022-02-01'), y: 9000 },
-      { x: dayjs('2022-02-02'), y: 5000 },
-      // { x: dayjs('2022-02-03'), y: 20000 },
-    ],
-  ]
-  data = chartData
+interface prop {
+  chartData: IChart[][]
+}
+export const LineChart = ({ chartData }: prop) => {
+  const data = chartData
   // find maxima for normalizing data
   const maxima = data.map((dataset) => Math.max(...dataset.map((d) => d.y)))
   const xOffsets = [50, 910]
@@ -57,11 +52,15 @@ export const LineChart = ({ chartData }: any) => {
             axis: { stroke: 'transparent' },
             tickLabels: { fill: '#94A2AD' },
           }}
+          animate={{
+            onLoad: { duration: 800 },
+            easing: 'expInOut',
+          }}
         />
-        {data.map((d, i) => (
+        {data.map((_d, i) => (
           <VictoryAxis
             dependentAxis
-            key={i}
+            key={xOffsets[i]}
             offsetX={xOffsets[i]}
             tickLabelComponent={<VictoryLabel dy={10} />}
             style={{
@@ -80,23 +79,15 @@ export const LineChart = ({ chartData }: any) => {
           />
         ))}
         {data.map((d, i) => (
-          <VictoryGroup key={i}>
+          <VictoryGroup key={xOffsets[i]}>
             <VictoryLine
               data={d}
               y={(datum) => datum.y / maxima[i]}
               style={{ data: { stroke: colors[i], strokeWidth: 3 } }}
-              animate={{
-                duration: 2000,
-                easing: 'bounce',
-              }}
             />
             <VictoryScatter
               data={d}
               y={(datum) => datum.y / maxima[i]}
-              animate={{
-                duration: 2000,
-                easing: 'bounce',
-              }}
               style={{ data: { fill: 'transparent' } }}
               size={5}
               labels={({ datum }) => `${datum.y}`}
