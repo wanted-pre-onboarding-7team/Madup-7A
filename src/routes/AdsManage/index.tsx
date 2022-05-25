@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import styles from './adsManage.module.scss'
 
 import { filteredAdListState, adStatusFilter } from './states'
@@ -27,7 +27,7 @@ const LIST = [
 
 const AdsManage = () => {
   const adList = useRecoilValue(filteredAdListState)
-  const setAdStatus = useSetRecoilState(adStatusFilter)
+  const [adStatus, setAdStatus] = useRecoilState(adStatusFilter)
 
   const handleStatusClick = (item: string) => {
     if (item === '전체 광고' || item === '진행중' || item === '중단됨') {
@@ -41,7 +41,7 @@ const AdsManage = () => {
       <section className={styles.cardsContainer}>
         <div className={styles.cardsHeader}>
           <div className={styles.dropdownBox}>
-            <Dropdown list={LIST} size='small' onClick={handleStatusClick} />
+            <Dropdown list={LIST} size='small' onClick={handleStatusClick} initValue={adStatus} />
           </div>
           <Button size='large' primary>
             광고 만들기

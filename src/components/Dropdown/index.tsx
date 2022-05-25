@@ -14,11 +14,14 @@ interface Props {
   greenDot?: boolean
   blueDot?: boolean
   size: 'large' | 'small'
+  initValue: string
   onClick: (item: string) => void
 }
 
-const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
-  const [selected, setSeleted] = useState(list[0].text)
+const Dropdown = ({ list, greenDot, blueDot, size, initValue, onClick }: Props) => {
+  const init = list.find((item) => item.value === initValue)?.text
+
+  const [selected, setSeleted] = useState(init)
   const [isListOpen, setIsListOpen] = useState(false)
   const outsideRef = useRef<HTMLInputElement>(null)
 
