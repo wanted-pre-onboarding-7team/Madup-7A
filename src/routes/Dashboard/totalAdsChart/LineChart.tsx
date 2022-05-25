@@ -22,17 +22,14 @@ interface prop {
   dateType: string
 }
 export const LineChart = ({ chartData, type, dateType }: prop) => {
-  let data = chartData
+  const data = chartData
 
-  const dateRange = useRecoilValue(dateRangeState)
-  let selectedDate = getDates(dateRange)
+  let dateRange = useRecoilValue(dateRangeState)
+  dateRange = dateRange.filter((a, i) => {
+    return dateRange.indexOf(a) === i
+  })
 
-  if (dateType === 'week') {
-    selectedDate = dateRange.map((date) => dayjs(date))
-    data.map((d, i) => {
-      d.map((b) => console.log(b.y))
-    })
-  }
+  const selectedDate = getDates(dateRange)
 
   // find maxima for normalizing data
   const maxima = data.map((dataset) => {
@@ -61,7 +58,12 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
 
   return (
     <div>
-      <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 30 }} {...options} scale={{ x: 'time' }}>
+      <VictoryChart
+        theme={VictoryTheme.grayscale}
+        domainPadding={totalCount === 1 ? { x: [1400, 1200] } : { x: 30 }}
+        {...options}
+        scale={{ x: 'time' }}
+      >
         <VictoryAxis
           tickFormat={(x) => {
             return dayjs(x).format('MM월 DD일')
@@ -72,7 +74,7 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
             axis: { stroke: 'transparent' },
             tickLabels: { fill: '#94A2AD' },
           }}
-          tickLabelComponent={<VictoryLabel dy={20} />}
+          tickLabelComponent={totalCount === 1 ? <VictoryLabel dy={20} dx={-70} /> : <VictoryLabel dy={20} />}
         />
         {data.map((d, i) => {
           if (d.length === 0) {

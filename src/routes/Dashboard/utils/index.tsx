@@ -23,6 +23,9 @@ export const getDays = ([startDate, stopDate]: string[]): string[] => {
 
 export const getDates = ([startDate, stopDate]: string[]): dayjs.Dayjs[] => {
   const dateArray = []
+
+  if (stopDate === undefined) return [dayjs(stopDate)]
+
   let currentDate = dayjs(startDate)
   const lastDate = dayjs(stopDate)
   while (currentDate <= lastDate) {
@@ -88,7 +91,7 @@ export const ChangeText = (value: number, type: string) => {
   return reulst
 }
 
-const isMenu = (element: menu, value: string) => {
+export const isMenu = (element: menu, value: string) => {
   if (element.value === value) return false
   return true
 }
