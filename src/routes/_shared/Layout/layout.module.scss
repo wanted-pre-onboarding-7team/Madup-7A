@@ -4,7 +4,9 @@
 .container {
   position: relative;
   display: flex;
+  width: 100vw;
   min-height: 100vh;
+  overflow: scroll;
 
   .aside {
     position: relative;
@@ -18,7 +20,8 @@
 
   .wrapper {
     position: relative;
-    min-width: calc(100vw - 320px);
+    width: calc(100vw - 320px);
+    min-width: 880px;
     padding: 0 40px 40px;
     background: colors.$BG_G;
   }
