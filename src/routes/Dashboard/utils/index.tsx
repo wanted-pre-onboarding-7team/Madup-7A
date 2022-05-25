@@ -57,11 +57,12 @@ const findTargetValue = (target: string, obj: IDaily) => {
 
 export const getChartData = (selectedDate: any[], rowChartData: IDaily[], target: string) => {
   const data: IChart[] = []
+  if (target === 'none') return []
   selectedDate.forEach((date) => {
     rowChartData.some((obj) => {
       if (obj.date === date) {
         const value = findTargetValue(target, obj)
-        data.push({ x: dayjs(date).format('YYYY-MM-DD'), y: value })
+        data.push({ x: dayjs(date), y: value })
       }
       return obj.date === date
     })

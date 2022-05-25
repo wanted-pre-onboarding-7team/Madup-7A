@@ -1,14 +1,14 @@
 import TREND_DATA from '../../../assets/data/wanted_FE_trend-data-set.json'
+import styles from './totalAdsChart.module.scss'
 import { IDaily } from 'types/trend'
 import { getChartData, getDays } from '../utils'
 import { LineChart } from './LineChart'
 
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { dateRangeState, firstFilterState } from '../states'
+import { dateRangeState, firstFilterState, sencondFilterState } from '../states'
 import Dropdown from 'components/Dropdown'
 import { CHART_MENU_LIST } from '../model'
-import { useMemo, useState } from 'react'
-import { useMount } from 'react-use'
+import { useMemo } from 'react'
 
 const DROPDOWN_STYLE = { fontSize: '14px' }
 
@@ -17,7 +17,7 @@ const TotalAdsChart = () => {
   const datavalue = useRecoilValue(dateRangeState)
   const selectedDate = getDays(datavalue)
   const [firstFilterValue, setFirstFilterValue] = useRecoilState(firstFilterState)
-  const [secondFilterValue, setSecondFilterValue] = useState('imp')
+  const [secondFilterValue, setSecondFilterValue] = useRecoilState(sencondFilterState)
 
   const handleStatusClick = (item: string) => {
     setFirstFilterValue(item)
@@ -30,7 +30,10 @@ const TotalAdsChart = () => {
   const chartValue = useMemo(() => {
     return getChartData(selectedDate, rowChartData, firstFilterValue)
   }, [firstFilterValue, rowChartData, selectedDate])
-  const chartValue2 = getChartData(selectedDate, rowChartData, secondFilterValue)
+
+  const chartValue2 = useMemo(() => {
+    return getChartData(selectedDate, rowChartData, secondFilterValue)
+  }, [rowChartData, secondFilterValue, selectedDate])
 
   const totalChartValue = useMemo(() => {
     return [chartValue, chartValue2]
@@ -38,7 +41,7 @@ const TotalAdsChart = () => {
 
   return (
     <div>
-      <div>
+      <div className={styles.dropdownContainer}>
         <Dropdown list={CHART_MENU_LIST} style={DROPDOWN_STYLE} onClick={handleStatusClick} size='small' />
         <Dropdown list={CHART_MENU_LIST} style={DROPDOWN_STYLE} onClick={handleStatusClickTwo} size='small' />
       </div>

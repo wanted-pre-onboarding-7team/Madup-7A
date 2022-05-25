@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export interface IDaily {
   imp: number
   click: number
@@ -13,6 +15,6 @@ export interface IDaily {
 }
 
 export interface IChart {
-  x: string
+  x: dayjs.Dayjs
   y: number
 }
