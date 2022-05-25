@@ -2,12 +2,13 @@ import { ReactNode, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import dayjs from 'dayjs'
 import DatePicker, { CalendarContainer } from 'react-datepicker'
+import { cx } from 'styles'
 import { ko } from 'date-fns/esm/locale'
 
 import { dateRangeState } from '../states'
 
-import 'react-datepicker/dist/react-datepicker.css'
 import './datepicker.scss'
+import { ArrowButton } from 'assets/svgs'
 
 interface IContainerProp {
   children: ReactNode
@@ -22,25 +23,54 @@ interface ICustomHeaderProp {
 const DateInput = () => {
   const [startDate, setStartDate] = useState(new Date('2022-04-14'))
   const [endDate, setEndDate] = useState(new Date('2022-04-20'))
-  const [, setDateRange] = useRecoilState(dateRangeState)
+  const [isOpen, setIsOpen] = useState(false)
+  const [dateRange, setDateRange] = useRecoilState(dateRangeState)
+
+  const getDateString = (date: Date | string) => {
+    if (!date) return ''
+
+    return dayjs(date).format('YYYY년 MM월 DD일')
+  }
 
   const handleChange = (dates: [Date, Date]) => {
     const [start, end] = dates
-    const dateString = dates.map((date) => dayjs(date).format('YYYY-MM-DD'))
 
     setStartDate(start)
     setEndDate(end)
-    setDateRange(dateString)
   }
 
-  const calenderContainer = ({ children }: IContainerProp) => (
-    <CalendarContainer>
-      <div className='calender-header'>날짜 범위를 선택해주세요</div>
-      <div className='calender-main'>{children}</div>
+  const handleOpenClick = () => {
+    setStartDate(new Date(dateRange[0]))
+    setEndDate(new Date(dateRange[1]))
+    setIsOpen((prev) => !prev)
+  }
+
+  const handleApplyClick = () => {
+    const dates = [startDate, endDate]
+    const dateString = dates.map((date) => dayjs(date).format('YYYY-MM-DD'))
+
+    setDateRange(dateString)
+    setIsOpen(false)
+  }
+
+  const calendarContainer = ({ children }: IContainerProp) => (
+    <CalendarContainer className='calendar'>
+      <div className='calendar-header'>
+        {getDateString(startDate)} ~ {getDateString(endDate)}
+      </div>
+      <div className='calendar-main'>{children}</div>
+      <div className='calendar-footer'>
+        <button type='button' onClick={handleOpenClick}>
+          닫기
+        </button>
+        <button type='button' className='apply' onClick={handleApplyClick}>
+          적용
+        </button>
+      </div>
     </CalendarContainer>
   )
 
-  const calenderHeader = ({ monthDate, decreaseMonth, increaseMonth }: ICustomHeaderProp) => (
+  const calendarHeader = ({ monthDate, decreaseMonth, increaseMonth }: ICustomHeaderProp) => (
     <div className='monthly-header'>
       <button type='button' aria-label='Previous Month' className='prev' onClick={decreaseMonth}>
         <span>{'<'}</span>
@@ -58,22 +88,29 @@ const DateInput = () => {
   )
 
   return (
-    <div>
-      <DatePicker
-        selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        onChange={handleChange}
-        minDate={new Date('2022-02-01')}
-        maxDate={new Date('2022-04-20')}
-        calendarContainer={calenderContainer}
-        renderCustomHeader={calenderHeader}
-        dateFormat='yyyy년 MM월 dd일'
-        disabledKeyboardNavigation
-        selectsRange
-        locale={ko}
-      />
-    </div>
+    <>
+      <button type='button' className='date-button' onClick={handleOpenClick}>
+        {getDateString(dateRange[0])} ~ {getDateString(dateRange[1])}
+        <ArrowButton className={cx('date-arrow', { open: isOpen })} />
+      </button>
+      {isOpen && (
+        <DatePicker
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          onChange={handleChange}
+          minDate={new Date('2022-02-01')}
+          maxDate={new Date('2022-04-20')}
+          calendarContainer={calendarContainer}
+          renderCustomHeader={calendarHeader}
+          shouldCloseOnSelect={false}
+          disabledKeyboardNavigation
+          selectsRange
+          inline
+          locale={ko}
+        />
+      )}
+    </>
   )
 }
 
