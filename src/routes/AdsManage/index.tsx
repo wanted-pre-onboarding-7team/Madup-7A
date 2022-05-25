@@ -1,11 +1,11 @@
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import styles from './adsManage.module.scss'
 
-import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { filteredTodoListState, adStatusFilter } from './state/adList'
+import { filteredAdListState, adStatusFilter } from './states'
 
-import AdCard from './_shared/AdCard'
+import AdCard from './AdCard'
 import Dropdown from 'components/Dropdown'
-import Button from './_shared/Button'
+import Button from 'components/Button'
 
 const LIST = [
   {
@@ -26,7 +26,7 @@ const LIST = [
 ]
 
 const AdsManage = () => {
-  const AD_DATA_LIST = useRecoilValue(filteredTodoListState)
+  const adList = useRecoilValue(filteredAdListState)
   const setAdStatus = useSetRecoilState(adStatusFilter)
 
   const handleStatusClick = (item: string) => {
@@ -36,7 +36,7 @@ const AdsManage = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <h1 className={styles.title}>광고관리</h1>
       <section className={styles.cardsContainer}>
         <div className={styles.cardsHeader}>
@@ -48,12 +48,12 @@ const AdsManage = () => {
           </Button>
         </div>
         <div className={styles.cardsWrapper}>
-          {AD_DATA_LIST.map((data) => (
+          {adList.map((data) => (
             <AdCard key={`ad-data-${data.id}`} data={data} />
           ))}
         </div>
       </section>
-    </div>
+    </>
   )
 }
 

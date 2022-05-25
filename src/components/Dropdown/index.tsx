@@ -24,6 +24,7 @@ const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
 
   const isSelected = (item: string) => {
     if (item === selected) return true
+
     return false
   }
 
@@ -33,12 +34,8 @@ const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
 
   const handleItemClick = (e: MouseEvent<HTMLButtonElement>) => {
     const item = e.currentTarget.title
-    const value = e.currentTarget.name
-
-    onClick(value)
 
     onClick(e.currentTarget.value)
-
     setSeleted(item)
     setIsListOpen(false)
   }
@@ -58,10 +55,8 @@ const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
   return (
     <div className={cx(styles.dropdown, styles[size])} ref={outsideRef}>
       <button type='button' className={styles.selected} onClick={handleSelectedClick}>
-        {greenDot || blueDot ? (
+        {(greenDot || blueDot) && (
           <div className={cx({ [styles.blueDot]: blueDot }, { [styles.greenDot]: greenDot })} />
-        ) : (
-          ''
         )}
         <input className={styles.text} value={selected} readOnly />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />

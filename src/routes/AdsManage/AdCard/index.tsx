@@ -1,8 +1,8 @@
 import styles from './adCard.module.scss'
 
-import Button from './Button'
+import Button from 'components/Button'
 
-interface IProps {
+interface Props {
   data: {
     id: number
     title: string
@@ -15,7 +15,7 @@ interface IProps {
   }
 }
 
-const AdCard = ({ data }: IProps) => {
+const AdCard = ({ data }: Props) => {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.contentBox}>
