@@ -1,7 +1,31 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/container';
 
-.app {
+.title {
+  @include container.dataTitle;
+  font-weight: 900;
+}
+
+.cardsContainer {
+  @include container.dataContainer;
+  height: auto;
+  background-color: colors.$BG_WHITE;
+
+  .cardsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 40px;
+
+    .dropdownBox {
+      width: 135px;
+    }
+  }
+}
+
+.cardsWrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  margin: -8px -8px 8px;
 }

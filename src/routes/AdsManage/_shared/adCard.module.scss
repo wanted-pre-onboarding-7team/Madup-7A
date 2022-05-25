@@ -1,0 +1,51 @@
+@use '/src/styles/constants/colors';
+
+.cardContainer {
+  width: calc((100% - 48px) / 3);
+  min-width: 232px;
+  height: 420px;
+  padding: 16px;
+  margin: 8px;
+  cursor: pointer;
+  border: 1px solid colors.$BORDER_TABLE;
+  border-radius: 20px;
+  transition: border 0.1s;
+
+  &:hover {
+    border: 1px solid colors.$PRIMARY;
+  }
+}
+
+.contentBox {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  .contentTitle {
+    padding-bottom: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid colors.$BORDER_TABLE;
+  }
+
+  .contentBody {
+    div {
+      display: flex;
+      height: 40px;
+      padding: 13px 0;
+      font-size: 12px;
+      color: colors.$TEXT_SECONDARY;
+      border-bottom: 1px solid colors.$BORDER_TABLE;
+
+      dt {
+        width: calc(100% / 3);
+        font-weight: 500;
+      }
+
+      dd {
+        width: calc(100% / 3 * 2);
+        font-weight: bold;
+        color: colors.$TEXT_PRIMARY;
+      }
+    }
+  }
+}

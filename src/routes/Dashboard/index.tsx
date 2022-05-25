@@ -1,6 +1,7 @@
 import styles from './dashboard.module.scss'
-import MediaTable from './MediaStatus/MediaTable'
 
+import MediaTable from './MediaStatus/MediaTable'
+import TotalAdsChart from './totalAdsChart'
 import Title from './Title'
 import DataCard from './DataCard'
 
@@ -10,7 +11,6 @@ const Dashboard = () => {
   return (
     <>
       <Title />
-
       <h2 className={styles.subTitle}>통합 광고 현황</h2>
       <div className={styles.container}>
         <ul className={styles.dataCards}>
@@ -18,8 +18,8 @@ const Dashboard = () => {
             <DataCard key={title} title={title} />
           ))}
         </ul>
+        <TotalAdsChart />
       </div>
-
       <MediaTable />
     </>
   )

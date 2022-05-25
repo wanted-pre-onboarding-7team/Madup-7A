@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
 import TREND_DATE from 'assets/data/wanted_FE_trend-data-set.json'
-import { IDaily } from 'types/trend'
+import { IDaily } from 'types/trend.d'
 import { getPlus, getRevenue, getConversion, getRoas } from 'utils/num'
 
 const getDays = ([startDate, endDate]: string[]): string[] => {
