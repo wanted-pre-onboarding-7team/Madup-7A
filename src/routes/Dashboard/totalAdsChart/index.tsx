@@ -9,7 +9,6 @@ import { dateRangeState, firstFilterState, sencondFilterState, dateFilterState }
 import Dropdown from 'components/Dropdown'
 import { CHART_MENU_LIST, DATE_MENU_LIST } from '../model'
 import { useMemo } from 'react'
-import dayjs from 'dayjs'
 
 interface menu {
   text: string
@@ -62,14 +61,26 @@ const TotalAdsChart = () => {
       <div className={styles.dropdownContainer}>
         <div className={styles.filterDropdown}>
           <div>
-            <Dropdown list={firstDropDownList} blueDot onClick={handleStatusClick} size='small' />
+            <Dropdown
+              list={firstDropDownList}
+              blueDot
+              onClick={handleStatusClick}
+              size='small'
+              initValue={firstFilterValue}
+            />
           </div>
           <div>
-            <Dropdown list={secondDropDownList} greenDot onClick={handleStatusClickTwo} size='small' />
+            <Dropdown
+              list={secondDropDownList}
+              greenDot
+              onClick={handleStatusClickTwo}
+              size='small'
+              initValue={secondFilterValue}
+            />
           </div>
         </div>
         <div>
-          <Dropdown list={DATE_MENU_LIST} onClick={handleDateClickEvnet} size='small' />
+          <Dropdown list={DATE_MENU_LIST} onClick={handleDateClickEvnet} size='small' initValue={dateFilterValue} />
         </div>
       </div>
       <LineChart chartData={totalChartValue} type={[firstFilterValue, secondFilterValue]} dateType={dateFilterValue} />

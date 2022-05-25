@@ -1,5 +1,4 @@
-import { atom, selector } from 'recoil'
-import { IChart } from 'types/trend'
+import { atom } from 'recoil'
 
 export const dateRangeState = atom<string[]>({
   key: '#dateRangeState',
