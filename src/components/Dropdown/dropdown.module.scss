@@ -1,0 +1,57 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+
+.dropdown {
+  position: relative;
+
+  .selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    border: 1px solid colors.$BORDER;
+    border-radius: 10px;
+
+    input {
+      cursor: pointer;
+    }
+
+    svg {
+      transition: 0.2s;
+    }
+
+    .openMenu {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .menuWrapper {
+    position: absolute;
+    z-index: levels.$DROPDOWN;
+    width: 100%;
+    margin-top: 10px;
+    background: colors.$BG_WHITE;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px colors.$SHADOW_DROPDOWN;
+
+    .menuList {
+      padding: 4px 0;
+
+      li {
+        padding: 5px 20px;
+
+        button {
+          width: 100%;
+          text-align: left;
+        }
+      }
+
+      .selectedItem {
+        button {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

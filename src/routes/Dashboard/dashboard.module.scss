@@ -1,10 +1,16 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/container';
 
-.subTitle {
-  @include container.dataSubTitle;
-}
-
 .container {
-  @include container.dataContainer;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+
+    h1 {
+      font-size: 26px;
+      font-weight: 900;
+    }
+  }
 }

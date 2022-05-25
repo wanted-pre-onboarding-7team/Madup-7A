@@ -1,0 +1,10 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/container';
+
+.subTitle {
+  @include container.dataSubTitle;
+}
+
+.container {
+  @include container.dataContainer;
+}
