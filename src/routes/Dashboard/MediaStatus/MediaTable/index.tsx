@@ -1,8 +1,4 @@
-import BigNumber from 'bignumber.js'
-
-import Chart from 'components/Chart'
 import styles from './mediaTable.module.scss'
-import { getMultiplyDivide } from 'utils/num'
 
 import CHANNEL_DATA from 'assets/data/channelData.json'
 import { IMedia } from 'types/media'

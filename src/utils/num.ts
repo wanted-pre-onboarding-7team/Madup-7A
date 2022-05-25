@@ -1,19 +1,5 @@
 import BigNumber from 'bignumber.js'
 
-BigNumber.config({
-  EXPONENTIAL_AT: 1e9,
-  FORMAT: {
-    decimalSeparator: '.',
-    groupSeparator: ',',
-    groupSize: 3,
-    secondaryGroupSize: 0,
-    fractionGroupSeparator: ' ',
-    fractionGroupSize: 0,
-  },
-})
-
-export { BigNumber }
-
 const Num = (n: string | number, b?: number | undefined): BigNumber => {
   if (typeof n === 'string') {
     return new BigNumber(n.replace(/,/g, ''), b)
@@ -22,15 +8,38 @@ const Num = (n: string | number, b?: number | undefined): BigNumber => {
   return new BigNumber(n, b)
 }
 
-export const getPlus = (a: number, b: number) => {
+const getPlus = (a: number, b: number) => {
   return Num(a).plus(b).toNumber()
 }
 
-export const getMultiplyDivide = (a: number, b: number, c: number) => {
-  BigNumber.set({ DECIMAL_PLACES: 0, ROUNDING_MODE: 5 })
-  return Num(a).multipliedBy(b).dividedBy(c).toNumber()
+const getMinus = (a: number, b: number) => {
+  return Num(a).minus(b).toNumber()
 }
 
-export const getDivide = (a: number, b: number) => {
+const getMultipliedBy = (a: number, b: number) => {
+  return Num(a).multipliedBy(b).toNumber()
+}
+
+const getDividedBy = (a: number, b: number) => {
+  if (!b) return a
+
   return Num(a).dividedBy(b).toNumber()
 }
+
+const getAbsoluteValue = (a: number) => {
+  return Num(a).abs().toNumber()
+}
+
+const getRevenue = (roas: number, cost: number): number => {
+  return getDividedBy(getMultipliedBy(roas, cost), 100)
+}
+
+const getConversion = (click: number, cvr: number): number => {
+  return getDividedBy(getMultipliedBy(click, cvr), 100)
+}
+
+const getRoas = (revenue: number, cost: number) => {
+  return getMultipliedBy(getDividedBy(revenue, cost), 100)
+}
+
+export { getPlus, getMinus, getMultipliedBy, getDividedBy, getAbsoluteValue, getRevenue, getConversion, getRoas }
