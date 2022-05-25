@@ -19,11 +19,20 @@ import { useMemo } from 'react'
 interface prop {
   chartData: IChart[][]
   type: string[]
+  dateType: string
 }
-export const LineChart = ({ chartData, type }: prop) => {
-  const data = chartData
-  const datavalue = useRecoilValue(dateRangeState)
-  const selectedDate = getDates(datavalue)
+export const LineChart = ({ chartData, type, dateType }: prop) => {
+  let data = chartData
+
+  const dateRange = useRecoilValue(dateRangeState)
+  let selectedDate = getDates(dateRange)
+
+  if (dateType === 'week') {
+    selectedDate = dateRange.map((date) => dayjs(date))
+    data.map((d, i) => {
+      d.map((b) => console.log(b.y))
+    })
+  }
 
   // find maxima for normalizing data
   const maxima = data.map((dataset) => {
@@ -49,8 +58,6 @@ export const LineChart = ({ chartData, type }: prop) => {
       right: 50,
     },
   }
-
-  console.log('data:', datavalue, selectedDate)
 
   return (
     <div>

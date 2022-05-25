@@ -1,4 +1,6 @@
-export const CHART_MENU_LIST = [
+import { menu } from 'types/trend'
+
+export const CHART_MENU_LIST: menu[] = [
   {
     text: '클릭수',
     value: 'click',

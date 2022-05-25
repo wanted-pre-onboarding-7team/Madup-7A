@@ -9,14 +9,29 @@ import { dateRangeState, firstFilterState, sencondFilterState, dateFilterState }
 import Dropdown from 'components/Dropdown'
 import { CHART_MENU_LIST, DATE_MENU_LIST } from '../model'
 import { useMemo } from 'react'
+import dayjs from 'dayjs'
+
+interface menu {
+  text: string
+  value: string
+  id: string
+}
+
+const isText = (element: menu, value: string) => {
+  if (element.value === value) return false
+  return true
+}
 
 const TotalAdsChart = () => {
   const rowChartData: IDaily[] = TREND_DATA.report.daily
-  const datavalue = useRecoilValue(dateRangeState)
-  const selectedDate = getDays(datavalue)
+  const dateRange = useRecoilValue(dateRangeState)
+  const selectedDate = getDays(dateRange)
   const [firstFilterValue, setFirstFilterValue] = useRecoilState(firstFilterState)
   const [secondFilterValue, setSecondFilterValue] = useRecoilState(sencondFilterState)
   const [dateFilterValue, setDateFilterValue] = useRecoilState(dateFilterState)
+
+  const firstDropDownList = CHART_MENU_LIST.filter((value) => isText(value, secondFilterValue))
+  const secondDropDownList = CHART_MENU_LIST.filter((value) => isText(value, firstFilterValue))
 
   const handleStatusClick = (item: string) => {
     setFirstFilterValue(item)
@@ -47,17 +62,17 @@ const TotalAdsChart = () => {
       <div className={styles.dropdownContainer}>
         <div className={styles.filterDropdown}>
           <div>
-            <Dropdown list={CHART_MENU_LIST} blueDot onClick={handleStatusClick} size='small' />
+            <Dropdown list={firstDropDownList} blueDot onClick={handleStatusClick} size='small' />
           </div>
           <div>
-            <Dropdown list={CHART_MENU_LIST} greenDot onClick={handleStatusClickTwo} size='small' />
+            <Dropdown list={secondDropDownList} greenDot onClick={handleStatusClickTwo} size='small' />
           </div>
         </div>
         <div>
           <Dropdown list={DATE_MENU_LIST} onClick={handleDateClickEvnet} size='small' />
         </div>
       </div>
-      <LineChart chartData={totalChartValue} type={[firstFilterValue, secondFilterValue]} />
+      <LineChart chartData={totalChartValue} type={[firstFilterValue, secondFilterValue]} dateType={dateFilterValue} />
     </div>
   )
 }

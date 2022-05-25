@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { IDaily, IChart } from 'types/trend'
+import { IDaily, IChart, menu } from 'types/trend'
 import BigNumber from 'bignumber.js'
 
 const Num = (n: string | number, b?: number | undefined): BigNumber => {
@@ -47,31 +47,6 @@ const findTargetValue = (target: string, obj: IDaily) => {
       roas: obj.roas,
     }[target] ?? 0
 
-  // switch (target) {
-  //   case 'imp':
-  //     return obj.imp
-  //   case 'click':
-  //     return obj.click
-  //   case 'cost':
-  //     return obj.cost
-  //   case 'conv':
-  //     return obj.conv
-  //   case 'convValue':
-  //     return obj.convValue
-  //   case 'ctr':
-  //     return obj.ctr
-  //   case 'cvr':
-  //     return obj.cvr
-  //   case 'cpc':
-  //     return obj.cpc
-  //   case 'cpa':
-  //     return obj.cpa
-  //   case 'roas':
-  //     return obj.roas
-  //   default:
-  //     return 0
-  // }
-
   return targetObejct
 }
 
@@ -111,4 +86,9 @@ export const ChangeText = (value: number, type: string) => {
   }
 
   return reulst
+}
+
+const isMenu = (element: menu, value: string) => {
+  if (element.value === value) return false
+  return true
 }

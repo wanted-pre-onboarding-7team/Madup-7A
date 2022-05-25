@@ -18,3 +18,9 @@ export interface IChart {
   x: dayjs.Dayjs
   y: number
 }
+
+export interface menu {
+  text: string
+  value: string
+  id: string
+}
