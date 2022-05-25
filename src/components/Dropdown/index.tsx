@@ -9,7 +9,7 @@ interface Props {
   list: Array<{
     id: string
     text: string
-    value?: string
+    value: string
   }>
   size: 'large' | 'small'
   greenDot?: boolean
@@ -33,8 +33,9 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
 
   const handleItemClick = (e: MouseEvent<HTMLButtonElement>) => {
     const item = e.currentTarget.title
+    const value = e.currentTarget.name
 
-    onClick(item)
+    onClick(value)
 
     setSeleted(item)
     setIsListOpen(false)
@@ -46,7 +47,7 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
 
   const dropdownList = list.map((item) => (
     <li key={item.text} className={cx(styles.dropdownItem, { [styles.selectedItem]: isSelected(item.text) })}>
-      <button type='button' title={item.text} onClick={handleItemClick}>
+      <button type='button' title={item.text} name={item.value} onClick={handleItemClick}>
         {item.text}
       </button>
     </li>

@@ -1,7 +1,7 @@
 import styles from './adsManage.module.scss'
 
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { filteredTodoListState, adStatusFilter } from 'state/adList'
+import { filteredTodoListState, adStatusFilter } from './state/adList'
 
 import AdsCard from './AdsCard'
 import Dropdown from 'components/Dropdown'
@@ -10,14 +10,17 @@ const LIST = [
   {
     id: '1',
     text: '전체 광고',
+    value: '전체 광고',
   },
   {
     id: '2',
     text: '진행중',
+    value: '진행중',
   },
   {
     id: '3',
     text: '중단됨',
+    value: '중단됨',
   },
 ]
 
