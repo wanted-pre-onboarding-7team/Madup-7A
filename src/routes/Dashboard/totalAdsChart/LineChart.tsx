@@ -8,16 +8,21 @@ import {
   VictoryTooltip,
   VictoryLabel,
 } from 'victory'
-import { ScalePropType } from 'victory-core'
 import dayjs from 'dayjs'
 
 import { IChart } from 'types/trend'
+import { ChangeText, getDays } from '../utils'
+import { useRecoilValue } from 'recoil'
+import { dateRangeState } from '../states'
 
 interface prop {
   chartData: IChart[][]
+  type: string[]
 }
-export const LineChart = ({ chartData }: prop) => {
+export const LineChart = ({ chartData, type }: prop) => {
   const data = chartData
+  const datavalue = useRecoilValue(dateRangeState)
+  const selectedDate = getDays(datavalue)
 
   // find maxima for normalizing data
   const maxima = data.map((dataset) => {
@@ -25,12 +30,13 @@ export const LineChart = ({ chartData }: prop) => {
     return Math.max(...dataset.map((d) => d.y))
   })
 
+  // const totalCount = useMemo(() => {
+  //   return Math.max(...data.map((d) => d.length)) < 5 ? Math.max(...data.map((d) => d.length)) : 5
+  // }, [data])
   const xOffsets = [50, 910]
-  const tickPadding = [40, -60]
+  const tickPadding = [38, -60]
   const anchors = ['start', 'end']
   const colors = ['#4fadf7', '#85da47']
-
-  // x 값이 2개인 경우 직접 값을 넘겨준다
 
   const options = {
     width: 960,
@@ -38,27 +44,24 @@ export const LineChart = ({ chartData }: prop) => {
     padding: {
       bottom: 50,
       top: 10,
+      left: 50,
+      right: 50,
     },
-    scale: { x: 'time' as ScalePropType },
   }
 
   return (
     <div>
-      <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: [50, 60], y: [40, 20] }} {...options}>
+      <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 30 }} {...options} scale={{ x: 'time' }}>
         <VictoryAxis
-          // tickValues={[dayjs('2022-02-01'), dayjs('2022-02-02')]}
-          tickCount={5}
           tickFormat={(x) => {
             return dayjs(x).format('MM월 DD일')
           }}
+          tickCount={5}
           style={{
             axis: { stroke: 'transparent' },
             tickLabels: { fill: '#94A2AD' },
           }}
-          animate={{
-            onLoad: { duration: 800 },
-            easing: 'expInOut',
-          }}
+          tickLabelComponent={<VictoryLabel dy={20} />}
         />
         {data.map((d, i) => {
           if (d.length === 0) {
@@ -69,6 +72,10 @@ export const LineChart = ({ chartData }: prop) => {
               dependentAxis
               key={xOffsets[i]}
               offsetX={xOffsets[i]}
+              tickValues={[0.2, 0.4, 0.6, 0.8, 1, 1.2]}
+              tickFormat={(t) => {
+                return ChangeText(t * maxima[i], type[i])
+              }}
               tickLabelComponent={<VictoryLabel dy={10} />}
               style={{
                 axis: { stroke: 'transparent' },
@@ -81,8 +88,6 @@ export const LineChart = ({ chartData }: prop) => {
                   strokeWidth: 0.2,
                 },
               }}
-              tickValues={[0.2, 0.4, 0.6, 0.8, 1, 1.2]}
-              tickFormat={(t) => Math.round(t * maxima[i])}
             />
           )
         })}
@@ -101,8 +106,8 @@ export const LineChart = ({ chartData }: prop) => {
                 data={d}
                 y={(datum) => datum.y / maxima[i]}
                 style={{ data: { fill: 'transparent' } }}
-                size={5}
-                labels={({ datum }) => `${datum.y}`}
+                size={20}
+                labels={({ datum }) => ChangeText(datum.y, type[i])}
                 labelComponent={
                   <VictoryTooltip
                     style={{ fill: 'white', fontSize: 20, textAnchor: 'middle' }}
@@ -111,7 +116,7 @@ export const LineChart = ({ chartData }: prop) => {
                       fill: '#3a474e',
                       margin: 10,
                     }}
-                    flyoutWidth={100}
+                    flyoutWidth={150}
                     dx={60}
                     dy={60}
                   />

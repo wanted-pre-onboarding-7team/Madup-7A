@@ -45,7 +45,7 @@ const TotalAdsChart = () => {
         <Dropdown list={CHART_MENU_LIST} style={DROPDOWN_STYLE} onClick={handleStatusClick} size='small' />
         <Dropdown list={CHART_MENU_LIST} style={DROPDOWN_STYLE} onClick={handleStatusClickTwo} size='small' />
       </div>
-      <LineChart chartData={totalChartValue} />
+      <LineChart chartData={totalChartValue} type={[firstFilterValue, secondFilterValue]} />
     </div>
   )
 }

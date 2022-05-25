@@ -1,5 +1,14 @@
 import dayjs from 'dayjs'
 import { IDaily, IChart } from 'types/trend'
+import BigNumber from 'bignumber.js'
+
+const Num = (n: string | number, b?: number | undefined): BigNumber => {
+  if (typeof n === 'string') {
+    return new BigNumber(n.replace(/,/g, ''), b)
+  }
+
+  return new BigNumber(n, b)
+}
 
 export const getDays = ([startDate, stopDate]: string[]): string[] => {
   const dateArray = []
@@ -19,7 +28,7 @@ const findTargetValue = (target: string, obj: IDaily) => {
       click: obj.click,
       cost: obj.cost,
       conv: obj.conv,
-      conValue: obj.convValue,
+      convValue: obj.convValue,
       ctr: obj.ctr,
       cvr: obj.cvr,
       cpc: obj.cpc,
@@ -68,4 +77,27 @@ export const getChartData = (selectedDate: any[], rowChartData: IDaily[], target
     })
   })
   return data
+}
+
+export const ChangeText = (value: number, type: string) => {
+  const countType = ['click', 'conv', 'imp']
+  const monenyType = ['convValue', 'cost', 'cpc', 'cpa']
+  let reulst = ''
+  if (countType.includes(type)) {
+    reulst = `${Math.round(value).toLocaleString()}번`
+  }
+  if (monenyType.includes(type)) {
+    reulst = `${Math.round(value).toLocaleString()}원`
+  }
+  if (type === 'cvr') {
+    reulst = `${value.toFixed(1)}%`
+  }
+  if (type === 'roas') {
+    reulst = `${Math.round(value)}%`
+  }
+  if (type === 'ctr') {
+    reulst = `${Num(value).multipliedBy(10).toNumber().toFixed(1)}%`
+  }
+
+  return reulst
 }
