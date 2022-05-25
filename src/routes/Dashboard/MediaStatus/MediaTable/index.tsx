@@ -2,11 +2,12 @@ import styles from './mediaTable.module.scss'
 
 import CHANNEL_DATA from 'assets/data/channelData.json'
 
-import { channelGroupBy, valueGroupBy } from './groupBy'
+import { channelGroupBy, getTotalRevenue, valueGroupBy } from './groupBy'
 import { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
 import { dateRangeState } from 'routes/Dashboard/states'
 import { getDays, getTotalValue, getValueString } from 'routes/Dashboard/MediaStatus/MediaTable/cardUtils'
+import { getRoas } from 'utils/num'
 
 const dataStructure = [
   { foot: '광고비', head: '광고비' },
@@ -45,7 +46,10 @@ const MediaTable = () => {
   }, [])
 
   const tableBody = useMemo(
-    () => Object.keys(channelGroup).map((media) => valueGroupBy(channelGroup[media])),
+    () =>
+      Object.keys(channelGroup).map((media) => {
+        return valueGroupBy(channelGroup[media])
+      }),
     [channelGroup]
   )
 
@@ -71,19 +75,25 @@ const MediaTable = () => {
               </tr>
             </thead>
             <tbody>
-              {tableBody.map((item, idx) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <tr key={`key-${idx}`}>
-                  <td>{channel[item.channel]}</td>
-                  <td>{`${item.cost.toLocaleString()}원`}</td>
-                  <td>{`${item.roas.toLocaleString()}원`}</td>
-                  <td>{`${item.roas.toLocaleString('en-US', { maximumFractionDigits: 0 })}%`}</td>
-                  <td>{item.imp.toLocaleString()}</td>
-                  <td>{item.click.toLocaleString()}</td>
-                  <td>{`${item.ctr.toLocaleString('en-US', { maximumFractionDigits: 2 })}%`}</td>
-                  <td>{`${item.cpc.toLocaleString('en-US', { maximumFractionDigits: 0 })}원`}</td>
-                </tr>
-              ))}
+              {tableBody.map((item, idx) => {
+                const revenue = getTotalRevenue(channelGroup, item.channel)
+                const roas = getRoas(revenue, item.cost)
+                const key = `key-${idx}`
+                return (
+                  <tr key={key}>
+                    <td>{channel[item.channel]}</td>
+                    <td>{`${item.cost.toLocaleString()}원`}</td>
+                    <td>{`${revenue.toLocaleString('en-US', {
+                      maximumFractionDigits: 0,
+                    })}원`}</td>
+                    <td>{`${roas.toLocaleString('en-US', { maximumFractionDigits: 0 })}%`}</td>
+                    <td>{item.imp.toLocaleString()}</td>
+                    <td>{item.click.toLocaleString()}</td>
+                    <td>{`${item.ctr.toLocaleString('en-US', { maximumFractionDigits: 2 })}%`}</td>
+                    <td>{`${item.cpc.toLocaleString('en-US', { maximumFractionDigits: 0 })}원`}</td>
+                  </tr>
+                )
+              })}
             </tbody>
             <tfoot className={styles.tableFoot}>
               <tr>
