@@ -1,78 +1,100 @@
 import styles from './mediaTable.module.scss'
 
 import CHANNEL_DATA from 'assets/data/channelData.json'
-import { IMedia } from 'types/media'
 
-import { keyGroupBy, channelGroupBy } from './groupBy'
+import { channelGroupBy, valueGroupBy } from './groupBy'
 import { useMemo } from 'react'
-// const tickFormat = ['광고비', '매출', 'ROAS', '노출수', '클릭 수', '클릭률 (CTR)', '클릭당비용 (CPC)']
+import { useRecoilValue } from 'recoil'
+import { dateRangeState } from 'routes/Dashboard/states'
+import { getDays, getTotalValue, getValueString } from 'routes/Dashboard/MediaStatus/MediaTable/cardUtils'
 
 const dataStructure = [
-  { category: '광고비' },
-  { category: '매출' },
-  { category: 'ROAS' },
-  { category: '노출수' },
-  { category: '클릭수' },
-  { category: '클릭률 (CTR)' },
-  { category: '클릭당비용 (CPC)' },
+  { foot: '광고비', head: '광고비' },
+  { foot: '매출', head: '매출' },
+  { foot: 'ROAS', head: 'ROAS' },
+  { foot: '노출수', head: '노출수' },
+  { foot: '클릭수', head: '클릭수' },
+  { foot: '클릭률', head: '클릭률 (CTR)' },
+  { foot: '클릭당비용', head: '클릭당비용 (CPC)' },
 ]
 
-const channelGroup = channelGroupBy(CHANNEL_DATA, 'channel')
-// console.log(channelGroup.kakao)
-
-// const resultCost = channelGroup.kakao.reduce((r, a) => {
-//   return r + a.cost
-// }, 0)
-
 const filterData = (range: string[]) => {
-  const filteredData = CHANNEL_DATA.filter((data) => range.includes(data.date))
+  const filteredData = CHANNEL_DATA.filter(
+    (item) =>
+      new Date(item.date).getTime() >= new Date(range[0]).getTime() &&
+      new Date(item.date).getTime() <= new Date(range[1]).getTime()
+  )
 
   return filteredData
 }
 
 const MediaTable = () => {
+  const date = useRecoilValue(dateRangeState)
+
+  const dateRange = getDays(date)
+
+  const filteredData = filterData(date)
+  const channelGroup = channelGroupBy(filteredData, 'channel')
+
   const tableTitle = useMemo(() => {
-    return dataStructure.map(({ category }) => (
-      <th key={category} className={styles.tableHead}>
-        {category}
+    return dataStructure.map(({ head }) => (
+      <th key={head} className={styles.tableHead}>
+        {head}
       </th>
     ))
   }, [])
 
-  const tableBody = useMemo(() => {
-    return channelGroup.kakao.map((itemList) => {
-      const { channel, click, cost, cpc, ctr, imp, roas } = itemList as IMedia
+  const tableBody = useMemo(
+    () => Object.keys(channelGroup).map((media) => valueGroupBy(channelGroup[media])),
+    [channelGroup]
+  )
 
-      return click
-    })
-  }, [channelGroup])
+  const tableFooter = useMemo(() => {
+    return dataStructure.map(({ foot }) => (
+      <td key={`foot-${foot}`}>{getValueString(getTotalValue(dateRange, foot), foot)}</td>
+    ))
+  }, [dateRange])
 
-  console.log(tableBody)
-
-  //   const tableFooter = useMemo(() => {
-
-  //   },[])
+  // todo: any 타입지정해야함
+  const channel: any = { facebook: '페이스북', naver: '네이버', google: '구글', kakao: '카카오' }
 
   return (
-    <div className={styles.boardContainer}>
+    <>
       <h3 className={styles.subTitle}>매체현황</h3>
-      <div className={styles.container}>
-        <table>
-          <thead>
-            <tr>
-              <th>{null}</th>
-              {tableTitle}
-            </tr>
-          </thead>
-          <tbody />
-          <tfoot>
-            <tr>
-              <td>총계</td>
-            </tr>
-          </tfoot>
-        </table>
+      <div className={styles.boardContainer}>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>{null}</th>
+                {tableTitle}
+              </tr>
+            </thead>
+            <tbody>
+              {tableBody.map((item, idx) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <tr key={`key-${idx}`}>
+                  <td>{channel[item.channel]}</td>
+                  <td>{`${item.cost.toLocaleString()}원`}</td>
+                  <td>{`${item.roas.toLocaleString()}원`}</td>
+                  <td>{`${item.roas.toLocaleString('en-US', { maximumFractionDigits: 0 })}%`}</td>
+                  <td>{item.imp.toLocaleString()}</td>
+                  <td>{item.click.toLocaleString()}</td>
+                  <td>{`${item.ctr.toLocaleString('en-US', { maximumFractionDigits: 2 })}%`}</td>
+                  <td>{`${item.cpc.toLocaleString('en-US', { maximumFractionDigits: 0 })}원`}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot className={styles.tableFoot}>
+              <tr>
+                <td>총계</td>
+                {tableFooter}
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
