@@ -6,7 +6,7 @@
 }
 
 .boardContainer {
-  @include container.dataContainer;
+  margin-top: 70px;
 
   .tableWrap {
     position: relative;
@@ -35,17 +35,6 @@
       .tableFoot {
         /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
         color: #586cf5;
-      }
-
-      &::after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: none;
-        width: 120px;
-        height: 300px;
-        content: '';
-        background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0%) 100%);
       }
 
       td,

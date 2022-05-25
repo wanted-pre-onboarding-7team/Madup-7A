@@ -1,5 +1,6 @@
+import { cloneDeep } from 'lodash'
 import { IMedia } from 'types/media'
-import { getDividedBy, getPlus, getRevenue } from 'utils/num'
+import { getDividedBy, getPlus, getRevenue, getRoas } from 'utils/num'
 
 export const channelGroupBy = (objectArray: IMedia[], property: keyof IMedia) => {
   return objectArray.reduce<Record<string, IMedia[]>>((acc, cur) => {
@@ -20,13 +21,10 @@ export const valueGroupBy = (objectArray: IMedia[]) => {
     imp: 0,
     click: 0,
     cost: 0,
-    convValue: 0,
     ctr: 0,
     cvr: 0,
     cpc: 0,
-    cpa: 0,
     roas: 0,
-    revenue: 0,
   }
 
   const media2 = objectArray.reduce((acc, item) => {
@@ -41,8 +39,8 @@ export const valueGroupBy = (objectArray: IMedia[]) => {
     return acc
   }, media)
 
-  media2.ctr = getDividedBy(media2.click, media2.imp)
-  media2.cpc = getDividedBy(media2.cost, media2.click)
+  media2.ctr += getRoas(media2.click, media2.imp)
+  media2.cpc += getDividedBy(media2.cost, media2.click)
   // media2.roas = getRoas(media2.revenue, media2.cost)
 
   return media2
@@ -54,3 +52,39 @@ export const getTotalRevenue = (filterdArray: Record<string, IMedia[]>, property
 
   return totalValue
 }
+
+interface chartType {
+  value: number
+  perValue: number
+  category: string
+}
+
+// export const chartGroupBy = (objectArray: chartType[]) => {
+//   const chart = [
+//     { value: 0, perValue: 0, category: '광고비' },
+//     { value: 0, perValue: 0, category: '매출' },
+//     { value: 0, perValue: 0, category: '노출 수' },
+//     { value: 0, perValue: 0, category: '클릭 수' },
+//     { value: 0, perValue: 0, category: '전환 수' },
+//   ]
+
+//   const totalGoogle = cloneDeep(chart)
+//   const totalFacebook = cloneDeep(chart)
+//   const totalNaver = cloneDeep(chart)
+//   const totalKakao = cloneDeep(chart)
+
+//   const getChartData = () => {
+//     const data: Record<string, { value: number; category: string }[]> = {
+//       google: [...totalGoogle],
+//       facebook: [...totalFacebook],
+//       naver: [...totalNaver],
+//       kakao: [...totalKakao],
+//     }
+//   }
+
+//   media2.ctr += getRoas(media2.click, media2.imp)
+//   media2.cpc += getDividedBy(media2.cost, media2.click)
+//   // media2.roas = getRoas(media2.revenue, media2.cost)
+
+//   return media2
+// }

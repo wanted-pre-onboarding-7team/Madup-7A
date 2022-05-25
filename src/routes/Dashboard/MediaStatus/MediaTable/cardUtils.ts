@@ -17,8 +17,11 @@ const getDays = ([startDate, endDate]: string[]): string[] => {
 }
 
 const filterData = (range: string[]) => {
-  const filteredData = CHANNEL_DATA.filter((data) => range.includes(data.date))
-
+  const filteredData = CHANNEL_DATA.filter(
+    (item) =>
+      new Date(item.date).getTime() >= new Date(range[0]).getTime() &&
+      new Date(item.date).getTime() <= new Date(range[1]).getTime()
+  )
   return filteredData
 }
 
@@ -79,4 +82,4 @@ const getValueString = (value: number, title: string) => {
   return `${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}원`
 }
 
-export { getDays, getTotalValue, getValueString, findTargetValue }
+export { getDays, getTotalValue, getValueString, filterData, findTargetValue }
