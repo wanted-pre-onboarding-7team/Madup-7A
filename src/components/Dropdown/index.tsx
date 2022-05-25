@@ -9,7 +9,6 @@ interface Props {
   list: Array<{
     id: string
     text: string
-<<<<<<< HEAD
     value?: string
   }>
   greenDot?: boolean
@@ -19,17 +18,6 @@ interface Props {
 }
 
 const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
-=======
-    value: string
-  }>
-  size: 'large' | 'small'
-  greenDot?: boolean
-  blueDot?: boolean
-  onClick: (item: string) => void
-}
-
-const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
->>>>>>> 05037e2e393302c072fd0293f7c6b32d0511e753
   const [selected, setSeleted] = useState(list[0].text)
   const [isListOpen, setIsListOpen] = useState(false)
   const outsideRef = useRef<HTMLInputElement>(null)
@@ -61,11 +49,7 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
 
   const dropdownList = list.map((item) => (
     <li key={item.text} className={cx(styles.dropdownItem, { [styles.selectedItem]: isSelected(item.text) })}>
-<<<<<<< HEAD
       <button type='button' title={item.text} onClick={handleItemClick} value={item.value}>
-=======
-      <button type='button' title={item.text} name={item.value} onClick={handleItemClick}>
->>>>>>> 05037e2e393302c072fd0293f7c6b32d0511e753
         {item.text}
       </button>
     </li>
@@ -74,15 +58,10 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
   return (
     <div className={cx(styles.dropdown, styles[size])} ref={outsideRef}>
       <button type='button' className={styles.selected} onClick={handleSelectedClick}>
-<<<<<<< HEAD
         {greenDot || blueDot ? (
           <div className={cx({ [styles.blueDot]: blueDot }, { [styles.greenDot]: greenDot })} />
         ) : (
           ''
-=======
-        {(greenDot || blueDot) && (
-          <div className={cx({ [styles.blueDot]: blueDot }, { [styles.greenDot]: greenDot })} />
->>>>>>> 05037e2e393302c072fd0293f7c6b32d0511e753
         )}
         <input className={styles.text} value={selected} readOnly />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />
