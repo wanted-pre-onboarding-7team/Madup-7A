@@ -1,5 +1,7 @@
 import styles from './dashboard.module.scss'
 
+import MediaTable from './MediaStatus/MediaTable'
+import TotalAdsChart from './totalAdsChart'
 import Title from './Title'
 import DataCard from './DataCard'
 
@@ -16,7 +18,9 @@ const Dashboard = () => {
             <DataCard key={title} title={title} />
           ))}
         </ul>
+        <TotalAdsChart />
       </div>
+      <MediaTable />
     </>
   )
 }

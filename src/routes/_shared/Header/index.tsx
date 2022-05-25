@@ -3,12 +3,19 @@ import styles from './header.module.scss'
 
 const Header = () => {
   return (
-    <div className={styles.header}>
-      <AlarmIcon />
-      <SettingIcon />
-      <ProfileIcon />
-      <span>원티드님</span>
-    </div>
+    <ul className={styles.header}>
+      <li className={styles.alarmIcon}>
+        <AlarmIcon />
+        <sup />
+      </li>
+      <li>
+        <SettingIcon />
+      </li>
+      <li>
+        <ProfileIcon />
+      </li>
+      <li>원티드님</li>
+    </ul>
   )
 }
 

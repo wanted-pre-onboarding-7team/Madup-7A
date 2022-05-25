@@ -14,6 +14,7 @@
     border-radius: 10px;
 
     input {
+      width: 70%;
       cursor: pointer;
     }
 
@@ -39,6 +40,8 @@
       padding: 4px 0;
 
       li {
+        display: flex;
+        align-items: center;
         padding: 5px 20px;
 
         button {
@@ -53,5 +56,57 @@
         }
       }
     }
+  }
+
+  &.small {
+    width: 123px;
+    height: 40px;
+
+    .selected {
+      padding: 12px 14px;
+    }
+
+    .dropdownItem {
+      height: 38px;
+      line-height: 38px;
+    }
+
+    .text {
+      font-size: 14px;
+    }
+  }
+
+  &.large {
+    width: 240px;
+    height: 60px;
+
+    .selected {
+      padding: 20px;
+    }
+
+    .dropdownItem {
+      height: 44px;
+      line-height: 44px;
+    }
+
+    .text {
+      font-size: 16px;
+    }
+  }
+
+  .greenDot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: colors.$GRAPH_02;
+    border-radius: 50%;
+  }
+
+  .blueDot {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: colors.$GRAPH_01;
+    border-radius: 50%;
   }
 }

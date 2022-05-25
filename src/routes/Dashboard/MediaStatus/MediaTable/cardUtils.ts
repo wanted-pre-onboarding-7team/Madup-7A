@@ -1,8 +1,9 @@
 import dayjs from 'dayjs'
 
-import TREND_DATE from 'assets/data/wanted_FE_trend-data-set.json'
-import { IDaily } from 'types/trend.d'
-import { getPlus, getRevenue, getConversion, getRoas } from 'utils/num'
+import CHANNEL_DATA from 'assets/data/channelData.json'
+import { IMedia } from 'types/media'
+
+import { getPlus, getRevenue, getRoas, getDividedBy } from 'utils/num'
 
 const getDays = ([startDate, endDate]: string[]): string[] => {
   const dateArray = []
@@ -16,20 +17,21 @@ const getDays = ([startDate, endDate]: string[]): string[] => {
 }
 
 const filterData = (range: string[]) => {
-  const filteredData = TREND_DATE.report.daily.filter((data) => range.includes(data.date))
+  const filteredData = CHANNEL_DATA.filter((data) => range.includes(data.date))
 
   return filteredData
 }
 
-const findTargetValue = (target: string, obj: IDaily) => {
+const findTargetValue = (target: string, obj: IMedia) => {
   const targetObejct =
     {
-      ROAS: obj.roas,
       광고비: obj.cost,
+      매출: getRevenue(obj.roas, obj.cost),
+      ROAS: obj.roas,
       노출수: obj.imp,
       클릭수: obj.click,
-      전환수: getConversion(obj.click, obj.cvr),
-      매출: getRevenue(obj.roas, obj.cost),
+      클릭률: getDividedBy(obj.click, obj.imp),
+      클릭당비용: getDividedBy(obj.cost, obj.click),
     }[target] ?? 0
 
   return targetObejct
@@ -53,19 +55,28 @@ const getTotalRoas = (date: string[]) => {
   return getRoas(totalRevenue, totalCost)
 }
 
+const getTotalCpc = (date: string[]) => {
+  const totalCost = addValue(date, '광고비')
+  const totalClick = addValue(date, '클릭수')
+
+  return getDividedBy(totalCost, totalClick)
+}
+
 const getTotalValue = (date: string[], title: string) => {
   if (title === 'ROAS') return getTotalRoas(date)
+  if (title === '클릭당비용') return getTotalCpc(date)
 
   return addValue(date, title)
 }
 
 const getValueString = (value: number, title: string) => {
   if (title === 'ROAS') return `${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}%`
-  if (title === '광고비') return `${(value / 10_000).toLocaleString('en-US', { maximumFractionDigits: 0 })}만 원`
-  if (title === '노출수') return `${(value / 10_000).toLocaleString('en-US', { maximumFractionDigits: 0 })}만 회`
-  if (title === '매출') return `${(value / 100_000_000).toLocaleString('en-US', { maximumFractionDigits: 1 })}억 원`
+  if (title === '노출수') return value.toLocaleString()
+  if (title === '클릭수') return value.toLocaleString()
+  if (title === '클릭률') return `${value.toLocaleString('en-US', { maximumFractionDigits: 2 })}%`
+  if (title === '클릭당비용') return `${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}원`
 
-  return `${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}회`
+  return `${value.toLocaleString('en-US', { maximumFractionDigits: 0 })}원`
 }
 
-export { getDays, getTotalValue, getValueString }
+export { getDays, getTotalValue, getValueString, findTargetValue }
