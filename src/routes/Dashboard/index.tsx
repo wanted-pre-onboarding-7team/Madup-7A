@@ -1,4 +1,5 @@
 import styles from './dashboard.module.scss'
+import TotalAdsChart from './TotalAdsChart'
 
 import TotalAdsChart from './TotalAdsChart'
 

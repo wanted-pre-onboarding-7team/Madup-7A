@@ -9,6 +9,7 @@ import { dateRangeState, firstFilterState, sencondFilterState, dateFilterState }
 import Dropdown from 'components/Dropdown'
 import { CHART_MENU_LIST, DATE_MENU_LIST } from '../model'
 import { useMemo } from 'react'
+import dayjs from 'dayjs'
 
 const TotalAdsChart = () => {
   const rowChartData: IDaily[] = TREND_DATA.report.daily
@@ -50,8 +51,8 @@ const TotalAdsChart = () => {
       const resultTwo =
         PrechartValue2 !== -9999
           ? [
-              { x: dayjs(totalRange[0]), y: PrechartValue },
-              { x: dayjs(totalRange[1]), y: ChartYsum(chartValue) },
+              { x: dayjs(totalRange[0]), y: PrechartValue2 },
+              { x: dayjs(totalRange[1]), y: ChartYsum(chartValue2) },
             ]
           : []
 
