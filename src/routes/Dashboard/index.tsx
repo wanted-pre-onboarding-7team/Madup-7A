@@ -2,7 +2,7 @@ import styles from './dashboard.module.scss'
 
 import DataCard from './DataCard'
 import DateInput from './DateInput'
-import TotalAdsChart from './IntegratedAdsChart'
+import IntegratedAdsChart from './IntegratedAdsChart'
 import MediaChart from './MediaStatus/MediaChart'
 import MediaTable from './MediaStatus/MediaTable'
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
             <DataCard key={`data-card-${title}`} title={title} />
           ))}
         </ul>
-        <TotalAdsChart />
+        <IntegratedAdsChart />
       </section>
       <div className={styles.container}>
         <h2 className={styles.subTitle}>매체현황</h2>
