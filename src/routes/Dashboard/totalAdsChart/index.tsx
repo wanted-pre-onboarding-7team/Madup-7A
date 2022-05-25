@@ -9,7 +9,6 @@ import { dateRangeState, firstFilterState, sencondFilterState, dateFilterState }
 import Dropdown from 'components/Dropdown'
 import { CHART_MENU_LIST, DATE_MENU_LIST } from '../model'
 import { useMemo } from 'react'
-import dayjs from 'dayjs'
 
 const TotalAdsChart = () => {
   const rowChartData: IDaily[] = TREND_DATA.report.daily
