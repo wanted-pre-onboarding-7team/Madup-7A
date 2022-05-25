@@ -1,0 +1,30 @@
+@use '/src/styles/constants/colors';
+
+.button {
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid colors.$BORDER;
+  border-radius: 10px;
+  opacity: 1;
+  transition: opacity 0.3s;
+
+  &.primary {
+    color: colors.$BG_WHITE;
+    background-color: colors.$PRIMARY;
+    border-color: transparent;
+  }
+
+  &.small {
+    width: 92px;
+    height: 40px;
+  }
+
+  &.large {
+    width: 108px;
+    height: 40px;
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
