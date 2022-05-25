@@ -38,7 +38,7 @@ const AdsManage = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>광고관리</h1>
-      <div className={styles.cardsContainer}>
+      <section className={styles.cardsContainer}>
         <div className={styles.cardsHeader}>
           <div className={styles.dropdownBox}>
             <Dropdown list={LIST} size='small' onClick={handleStatusClick} />
@@ -52,7 +52,7 @@ const AdsManage = () => {
             <AdCard key={`ad-data-${data.id}`} data={data} />
           ))}
         </div>
-      </div>
+      </section>
     </div>
   )
 }

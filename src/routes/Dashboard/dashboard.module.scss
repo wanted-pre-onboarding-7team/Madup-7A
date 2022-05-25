@@ -2,10 +2,10 @@
 @use '/src/styles/mixins/container';
 
 .title {
-  @include container.dataTitle;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  height: 80px;
+  margin-bottom: 20px;
 
   h1 {
     font-size: 26px;
