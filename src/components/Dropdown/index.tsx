@@ -9,15 +9,15 @@ interface Props {
   list: Array<{
     id: string
     text: string
-    value: string
+    value?: string
   }>
-  size: 'large' | 'small'
   greenDot?: boolean
   blueDot?: boolean
+  size: 'large' | 'small'
   onClick: (item: string) => void
 }
 
-const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
+const Dropdown = ({ list, greenDot, blueDot, size, onClick }: Props) => {
   const [selected, setSeleted] = useState(list[0].text)
   const [isListOpen, setIsListOpen] = useState(false)
   const outsideRef = useRef<HTMLInputElement>(null)
@@ -37,6 +37,8 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
 
     onClick(value)
 
+    onClick(e.currentTarget.value)
+
     setSeleted(item)
     setIsListOpen(false)
   }
@@ -47,7 +49,7 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
 
   const dropdownList = list.map((item) => (
     <li key={item.text} className={cx(styles.dropdownItem, { [styles.selectedItem]: isSelected(item.text) })}>
-      <button type='button' title={item.text} name={item.value} onClick={handleItemClick}>
+      <button type='button' title={item.text} onClick={handleItemClick} value={item.value}>
         {item.text}
       </button>
     </li>
@@ -56,8 +58,10 @@ const Dropdown = ({ list, size, greenDot, blueDot, onClick }: Props) => {
   return (
     <div className={cx(styles.dropdown, styles[size])} ref={outsideRef}>
       <button type='button' className={styles.selected} onClick={handleSelectedClick}>
-        {(greenDot || blueDot) && (
+        {greenDot || blueDot ? (
           <div className={cx({ [styles.blueDot]: blueDot }, { [styles.greenDot]: greenDot })} />
+        ) : (
+          ''
         )}
         <input className={styles.text} value={selected} readOnly />
         <ArrowButton className={cx({ [styles.openMenu]: isListOpen })} />

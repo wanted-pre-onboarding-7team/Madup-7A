@@ -78,3 +78,7 @@
     }
   }
 }
+
+.adsContainer {
+  @include container.dataContainer;
+}

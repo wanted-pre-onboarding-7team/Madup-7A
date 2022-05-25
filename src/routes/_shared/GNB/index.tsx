@@ -8,12 +8,12 @@ const LIST = [
   {
     id: '1',
     text: '매드업',
-    value: '매드업',
+    value: 'med_1',
   },
   {
     id: '2',
     text: '서비스 추가하기',
-    value: '서비스 추가하기',
+    value: 'med_2',
   },
 ]
 

@@ -1,4 +1,5 @@
 import styles from './dashboard.module.scss'
+import TotalAdsChart from './totalAdsChart'
 
 import Title from './Title'
 import DataCard from './DataCard'
@@ -16,6 +17,7 @@ const Dashboard = () => {
             <DataCard key={title} title={title} />
           ))}
         </ul>
+        <TotalAdsChart />
       </div>
     </>
   )
