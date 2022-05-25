@@ -57,18 +57,9 @@
 }
 
 .animation {
-  .shape1 {
-    animation: 0.5s ease 0s infinite alternate;
-  }
-
-  .shape2 {
-    animation: 0.5s ease 0s infinite alternate;
-  }
-
-  .shape3 {
-    animation: 0.5s ease 0s infinite alternate;
-  }
-
+  .shape1,
+  .shape2,
+  .shape3,
   .shape4 {
     animation: 0.5s ease 0s infinite alternate;
   }
