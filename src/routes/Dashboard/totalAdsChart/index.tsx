@@ -51,8 +51,8 @@ const TotalAdsChart = () => {
       const resultTwo =
         PrechartValue2 !== -9999
           ? [
-              { x: dayjs(totalRange[0]), y: PrechartValue },
-              { x: dayjs(totalRange[1]), y: ChartYsum(chartValue) },
+              { x: dayjs(totalRange[0]), y: PrechartValue2 },
+              { x: dayjs(totalRange[1]), y: ChartYsum(chartValue2) },
             ]
           : []
 
