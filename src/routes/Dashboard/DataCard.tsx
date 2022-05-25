@@ -6,8 +6,9 @@ import styles from './dashboard.module.scss'
 import { ArrowIcon } from 'assets/svgs'
 import { getMinus } from 'utils/num'
 
+import { getDays } from './utils'
 import { dateRangeState } from './states'
-import { getValueString, getDays, getTotalValue } from './cardUtils'
+import { getCardValueString, getTotalValue } from './cardUtils'
 
 interface Props {
   title: string
@@ -23,8 +24,8 @@ const DataCard = ({ title }: Props) => {
   const previousValue = getTotalValue(previousDateRange, title)
   const comparison = getMinus(currentValue, previousValue)
 
-  const valueString = getValueString(currentValue, title)
-  const comparisonString = getValueString(comparison, title)
+  const valueString = getCardValueString(currentValue, title)
+  const comparisonString = getCardValueString(comparison, title)
 
   return (
     <li className={styles.dataCard}>

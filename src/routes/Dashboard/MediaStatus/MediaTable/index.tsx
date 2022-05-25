@@ -1,13 +1,13 @@
-import styles from './mediaTable.module.scss'
-
-import CHANNEL_DATA from 'assets/data/channelData.json'
-
-import { channelGroupBy, getTotalRevenue, valueGroupBy } from './groupBy'
 import { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
-import { dateRangeState } from 'routes/Dashboard/states'
-import { getDays, getTotalValue, getValueString } from 'routes/Dashboard/MediaStatus/MediaTable/cardUtils'
+import styles from './mediaTable.module.scss'
+
 import { getRoas } from 'utils/num'
+
+import { dateRangeState } from '../../states'
+import { getDays } from '../../utils'
+import { getTableValueString, getTotalValue } from '../../cardUtils'
+import { channelGroupBy, findChannel, getTotalRevenue, valueGroupBy } from './utils'
 
 const dataStructure = [
   { foot: '광고비', head: '광고비' },
@@ -19,23 +19,11 @@ const dataStructure = [
   { foot: '클릭당비용', head: '클릭당비용 (CPC)' },
 ]
 
-const filterData = (range: string[]) => {
-  const filteredData = CHANNEL_DATA.filter(
-    (item) =>
-      new Date(item.date).getTime() >= new Date(range[0]).getTime() &&
-      new Date(item.date).getTime() <= new Date(range[1]).getTime()
-  )
-
-  return filteredData
-}
-
 const MediaTable = () => {
   const date = useRecoilValue(dateRangeState)
 
   const dateRange = getDays(date)
-
-  const filteredData = filterData(date)
-  const channelGroup = channelGroupBy(filteredData, 'channel')
+  const channelGroup = channelGroupBy(date, 'channel')
 
   const tableTitle = useMemo(() => {
     return dataStructure.map(({ head }) => (
@@ -55,12 +43,9 @@ const MediaTable = () => {
 
   const tableFooter = useMemo(() => {
     return dataStructure.map(({ foot }) => (
-      <td key={`foot-${foot}`}>{getValueString(getTotalValue(dateRange, foot), foot)}</td>
+      <td key={`foot-${foot}`}>{getTableValueString(getTotalValue(dateRange, foot), foot)}</td>
     ))
   }, [dateRange])
-
-  // todo: any 타입지정해야함
-  const channel: any = { facebook: '페이스북', naver: '네이버', google: '구글', kakao: '카카오' }
 
   return (
     <>
@@ -81,7 +66,7 @@ const MediaTable = () => {
                 const key = `key-${idx}`
                 return (
                   <tr key={key}>
-                    <td>{channel[item.channel]}</td>
+                    <td>{findChannel(item.channel)}</td>
                     <td>{`${item.cost.toLocaleString()}원`}</td>
                     <td>{`${revenue.toLocaleString('en-US', {
                       maximumFractionDigits: 0,

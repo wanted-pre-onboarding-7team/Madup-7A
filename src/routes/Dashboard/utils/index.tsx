@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { IDaily, IChart, menu } from 'types/trend'
+import { IDaily, IChart, IMenu } from 'types/trend'
 import BigNumber from 'bignumber.js'
 
 const Num = (n: string | number, b?: number | undefined): BigNumber => {
@@ -88,7 +88,7 @@ export const ChangeText = (value: number, type: string) => {
   return reulst
 }
 
-const isMenu = (element: menu, value: string) => {
+const isMenu = (element: IMenu, value: string) => {
   if (element.value === value) return false
   return true
 }

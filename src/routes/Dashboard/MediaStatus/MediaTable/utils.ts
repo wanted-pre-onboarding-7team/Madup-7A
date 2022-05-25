@@ -1,20 +1,44 @@
+import CHANNEL_DATA from 'assets/data/channelData.json'
 import { IMedia } from 'types/media'
 import { getDividedBy, getPlus, getRevenue } from 'utils/num'
 
-export const channelGroupBy = (objectArray: IMedia[], property: keyof IMedia) => {
-  return objectArray.reduce<Record<string, IMedia[]>>((acc, cur) => {
+const filterChannelData = (range: string[]) => {
+  const filteredData = CHANNEL_DATA.filter(
+    (item) =>
+      new Date(item.date).getTime() >= new Date(range[0]).getTime() &&
+      new Date(item.date).getTime() <= new Date(range[1]).getTime()
+  )
+
+  return filteredData
+}
+
+const findChannel = (channel: string) => {
+  const targetChannel = {
+    facebook: '페이스북',
+    naver: '네이버',
+    google: '구글',
+    kakao: '카카오',
+  }[channel]
+
+  return targetChannel
+}
+
+const channelGroupBy = (date: string[], property: keyof IMedia) => {
+  const filteredData = filterChannelData(date)
+  return filteredData.reduce<Record<string, IMedia[]>>((acc, cur) => {
     const key = cur[property]
-    if (!key) return acc
 
     if (!acc[key]) {
       acc[key] = []
     }
+
     acc[key].push(cur)
+
     return acc
   }, {})
 }
 
-export const valueGroupBy = (objectArray: IMedia[]) => {
+const valueGroupBy = (objectArray: IMedia[]) => {
   const media = {
     channel: '',
     imp: 0,
@@ -36,21 +60,21 @@ export const valueGroupBy = (objectArray: IMedia[]) => {
     acc.imp += imp
     acc.roas += roas
     acc.channel = channel
-    // acc.revenue += getRevenue(roas, cost)
 
     return acc
   }, media)
 
   media2.ctr = getDividedBy(media2.click, media2.imp)
   media2.cpc = getDividedBy(media2.cost, media2.click)
-  // media2.roas = getRoas(media2.revenue, media2.cost)
 
   return media2
 }
 
-export const getTotalRevenue = (filterdArray: Record<string, IMedia[]>, property: string) => {
+const getTotalRevenue = (filterdArray: Record<string, IMedia[]>, property: string) => {
   const revenueArray = filterdArray[property].map((data) => getRevenue(data.roas, data.cost))
   const totalValue = revenueArray.reduce((prev, cur) => getPlus(prev, cur), 0)
 
   return totalValue
 }
+
+export { findChannel, channelGroupBy, valueGroupBy, getTotalRevenue }

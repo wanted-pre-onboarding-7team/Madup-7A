@@ -19,7 +19,7 @@ export interface IChart {
   y: number
 }
 
-export interface menu {
+export interface IMenu {
   text: string
   value: string
   id: string
