@@ -40,14 +40,21 @@ const TotalAdsChart = () => {
       const PrechartValue = ChartYsum(getChartData(previousDateRange, rowChartData, firstFilterValue))
 
       const PrechartValue2 = ChartYsum(getChartData(previousDateRange, rowChartData, secondFilterValue))
-      const result = [
-        { x: dayjs(totalRange[0]), y: PrechartValue },
-        { x: dayjs(totalRange[1]), y: ChartYsum(chartValue) },
-      ]
-      const resultTwo = [
-        { x: dayjs(totalRange[0]), y: PrechartValue2 },
-        { x: dayjs(totalRange[1]), y: ChartYsum(chartValue2) },
-      ]
+      const result =
+        PrechartValue !== -9999
+          ? [
+              { x: dayjs(totalRange[0]), y: PrechartValue },
+              { x: dayjs(totalRange[1]), y: ChartYsum(chartValue) },
+            ]
+          : []
+
+      const resultTwo =
+        PrechartValue2 !== -9999
+          ? [
+              { x: dayjs(totalRange[0]), y: PrechartValue },
+              { x: dayjs(totalRange[1]), y: ChartYsum(chartValue) },
+            ]
+          : []
 
       return [result, resultTwo]
     }

@@ -98,6 +98,7 @@ export const isMenu = (element: menu, value: string) => {
 }
 
 export const ChartYsum = (obj: IChart[]) => {
+  if (obj.length === 0) return -9999
   const sum = obj
     .map((item) => {
       return item.y
