@@ -1,6 +1,6 @@
-import { menu } from 'types/trend'
+import { IMenu } from 'types/trend'
 
-export const CHART_MENU_LIST: menu[] = [
+export const CHART_MENU_LIST: IMenu[] = [
   {
     text: '클릭수',
     value: 'click',

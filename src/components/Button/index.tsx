@@ -7,11 +7,12 @@ interface Props {
   children: ReactNode
   size: 'large' | 'small'
   primary?: boolean
+  onClick?: () => void
 }
 
-const Button = ({ children, size, primary }: Props) => {
+const Button = ({ children, size, primary, onClick }: Props) => {
   return (
-    <button type='button' className={cx(styles.button, styles[size], { [styles.primary]: primary })}>
+    <button type='button' className={cx(styles.button, styles[size], { [styles.primary]: primary })} onClick={onClick}>
       {children}
     </button>
   )

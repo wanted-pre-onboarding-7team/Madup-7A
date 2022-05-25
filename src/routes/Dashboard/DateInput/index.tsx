@@ -9,6 +9,7 @@ import { dateRangeState } from '../states'
 
 import './datepicker.scss'
 import { ArrowButton } from 'assets/svgs'
+import Button from 'components/Button'
 
 interface IContainerProp {
   children: ReactNode
@@ -60,12 +61,12 @@ const DateInput = () => {
       </div>
       <div className='calendar-main'>{children}</div>
       <div className='calendar-footer'>
-        <button type='button' onClick={handleOpenClick}>
+        <Button size='small' onClick={handleOpenClick}>
           닫기
-        </button>
-        <button type='button' className='apply' onClick={handleApplyClick}>
+        </Button>
+        <Button size='small' onClick={handleApplyClick} primary>
           적용
-        </button>
+        </Button>
       </div>
     </CalendarContainer>
   )

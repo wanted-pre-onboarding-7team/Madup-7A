@@ -17,7 +17,7 @@
   @include container.dataSubTitle;
 }
 
-.container {
+.totalAds {
   @include container.dataContainer;
 
   .dataCards {
@@ -27,58 +27,9 @@
     column-gap: 22px;
     align-items: center;
     overflow: scroll;
-
-    .dataCard {
-      display: flex;
-      justify-content: space-between;
-      height: 79px;
-      padding: 18px 40px;
-      background: colors.$BG_WHITE;
-      border: 0.5px solid colors.$BORDER_TABLE;
-      border-radius: 10px;
-
-      dl {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      dt {
-        font-size: 12px;
-        color: colors.$TEXT_SECONDARY;
-      }
-
-      dd {
-        font-weight: 600;
-      }
-
-      .comparison {
-        align-self: flex-end;
-        font-size: 12px;
-
-        svg {
-          path {
-            fill: colors.$ARROW_DECREASE;
-          }
-        }
-
-        .increased {
-          transform: rotate(-180deg);
-
-          path {
-            fill: colors.$ARROW_INCREASE;
-          }
-        }
-
-        span {
-          margin-left: 5px;
-          color: colors.$TEXT_SECONDARY;
-        }
-      }
-    }
   }
 }
 
-.adsContainer {
+.mediaStatus {
   @include container.dataContainer;
 }

@@ -42,4 +42,4 @@ const getRoas = (revenue: number, cost: number) => {
   return getMultipliedBy(getDividedBy(revenue, cost), 100)
 }
 
-export { getPlus, getMinus, getMultipliedBy, getDividedBy, getAbsoluteValue, getRevenue, getConversion, getRoas }
+export { Num, getPlus, getMinus, getMultipliedBy, getDividedBy, getAbsoluteValue, getRevenue, getConversion, getRoas }

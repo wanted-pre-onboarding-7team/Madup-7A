@@ -25,7 +25,7 @@ const GNB = () => {
       <div className={styles.underline} />
       <div className={styles.wrapper}>
         <span className={styles.title}>서비스</span>
-        <Dropdown list={LIST} size='large' onClick={handleClick} />
+        <Dropdown list={LIST} size='large' onClick={handleClick} initValue='med_1' />
       </div>
       <div className={styles.wrapper}>
         <span className={styles.title}>광고 센터</span>

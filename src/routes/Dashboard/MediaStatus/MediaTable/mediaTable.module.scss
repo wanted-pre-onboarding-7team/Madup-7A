@@ -1,51 +1,40 @@
 @use '/src/styles/constants/colors';
-@use '/src/styles/mixins/container';
 
-.subTitle {
-  @include container.dataSubTitle;
-}
+.tableWrap {
+  position: relative;
+  overflow-x: scroll;
+  font-size: 12px;
 
-.boardContainer {
-  margin-top: 70px;
+  .table {
+    width: 100%;
+    text-align: right;
+    border-top: 1px solid colors.$BORDER_TABLE;
 
-  .tableWrap {
-    position: relative;
-    overflow-x: scroll;
-    font-size: 12px;
+    .tableHead {
+      font-size: 12px;
+      color: colors.$TEXT_SECONDARY;
+    }
 
-    .table {
-      width: 950px;
-      margin: 0 auto;
-      text-align: right;
-      border-top: 1px solid colors.$BORDER_TABLE;
-
-      .tableHead {
-        font-size: 12px;
-        color: colors.$TEXT_SECONDARY;
-      }
-
-      .tableBody {
-        .tableRows {
-          .tableData:first-child {
-            text-align: left;
-          }
-        }
-      }
-
-      .tableFoot {
-        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
-        color: #586cf5;
-      }
-
-      td,
-      th {
-        width: 100px;
-        padding: 12px 8px;
-        border-bottom: 1px solid colors.$BORDER_TABLE;
-
-        &:first-child {
+    .tableBody {
+      .tableRows {
+        .tableData:first-child {
           text-align: left;
         }
+      }
+    }
+
+    .tableFoot {
+      color: colors.$PRIMARY;
+    }
+
+    td,
+    th {
+      min-width: 100px;
+      padding: 12px 8px;
+      border-bottom: 1px solid colors.$BORDER_TABLE;
+
+      &:first-child {
+        text-align: left;
       }
     }
   }

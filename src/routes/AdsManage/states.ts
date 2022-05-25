@@ -1,22 +1,22 @@
 import { atom, selector } from 'recoil'
 
-import adListJson from 'assets/data/adList.json'
-import adDataSetting from 'routes/AdsManage/utils/adDataSetting'
+import AD_LIST_DATA from 'assets/data/adList.json'
+import adDataSetting from './utils/adDataSetting'
 
-const ADS_DATA = adDataSetting(adListJson.ads)
+const ADS_DATA = adDataSetting(AD_LIST_DATA.ads)
 
 export const adDataList = atom({
-  key: 'adDataList',
+  key: '#adDataList',
   default: ADS_DATA,
 })
 
 export const adStatusFilter = atom({
-  key: 'adStatusFilter',
+  key: '#adStatusFilter',
   default: '전체 광고',
 })
 
-export const filteredTodoListState = selector({
-  key: 'filteredTodoListState',
+export const filteredAdListState = selector({
+  key: '#filteredAdListState',
   get: ({ get }) => {
     const adList = get(adDataList)
     const adStatus = get(adStatusFilter)

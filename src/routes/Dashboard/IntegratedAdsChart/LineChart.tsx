@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import { useRecoilValue } from 'recoil'
 import {
   VictoryLine,
   VictoryTheme,
@@ -9,39 +11,36 @@ import {
   VictoryLabel,
 } from 'victory'
 import dayjs from 'dayjs'
+import _ from 'lodash'
 
 import { IChart } from 'types/trend'
-import { ChangeText, getDates } from '../utils'
-import { useRecoilValue } from 'recoil'
-import { dateRangeState } from '../states'
-import { useMemo } from 'react'
 
-interface prop {
+import { getChangeText, getDates } from '../utils/chartUtils'
+import { dateRangeState } from '../states'
+
+interface Prop {
   chartData: IChart[][]
   type: string[]
   dateType: string
 }
-export const LineChart = ({ chartData, type, dateType }: prop) => {
-  let data = chartData
 
-  const dateRange = useRecoilValue(dateRangeState)
+const LineChart = ({ chartData, type, dateType }: Prop) => {
+  const data = chartData
+
+  let dateRange = useRecoilValue(dateRangeState)
+  dateRange = _.uniq(dateRange)
   let selectedDate = getDates(dateRange)
-
-  if (dateType === 'week') {
-    selectedDate = dateRange.map((date) => dayjs(date))
-    data.map((d, i) => {
-      d.map((b) => console.log(b.y))
-    })
-  }
-
-  // find maxima for normalizing data
   const maxima = data.map((dataset) => {
     if (dataset.length === 0) return 0
     return Math.max(...dataset.map((d) => d.y))
   })
 
+  if (dateType === 'week') {
+    selectedDate = dateRange.map((date) => dayjs(date))
+  }
+
   const totalCount = useMemo(() => {
-    return Math.max(...data.map((d) => d.length)) < 5 ? Math.max(...data.map((d) => d.length)) : 5
+    return Math.max(...data.map((d) => d.length))
   }, [data])
   const xOffsets = [50, 910]
   const tickPadding = [38, -60]
@@ -61,7 +60,13 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
 
   return (
     <div>
-      <VictoryChart theme={VictoryTheme.grayscale} domainPadding={{ x: 30 }} {...options} scale={{ x: 'time' }}>
+      <VictoryChart
+        theme={VictoryTheme.grayscale}
+        domainPadding={totalCount === 1 ? { x: [1400, 1200] } : { x: 30 }}
+        {...options}
+        scale={{ x: 'time' }}
+        singleQuadrantDomainPadding={{ x: false }}
+      >
         <VictoryAxis
           tickFormat={(x) => {
             return dayjs(x).format('MM월 DD일')
@@ -72,7 +77,7 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
             axis: { stroke: 'transparent' },
             tickLabels: { fill: '#94A2AD' },
           }}
-          tickLabelComponent={<VictoryLabel dy={20} />}
+          tickLabelComponent={totalCount === 1 ? <VictoryLabel dy={20} dx={-70} /> : <VictoryLabel dy={20} />}
         />
         {data.map((d, i) => {
           if (d.length === 0) {
@@ -85,7 +90,7 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
               offsetX={xOffsets[i]}
               tickValues={[0.2, 0.4, 0.6, 0.8, 1, 1.2]}
               tickFormat={(t) => {
-                return ChangeText(t * maxima[i], type[i])
+                return getChangeText(t * maxima[i], type[i])
               }}
               tickLabelComponent={<VictoryLabel dy={10} />}
               style={{
@@ -133,7 +138,7 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
                 y={(datum) => datum.y / maxima[i]}
                 style={{ data: totalCount === 1 ? { fill: colors[i] } : { fill: 'transparent' } }}
                 size={5}
-                labels={({ datum }) => ChangeText(datum.y, type[i])}
+                labels={({ datum }) => getChangeText(datum.y, type[i])}
                 events={[
                   {
                     target: 'data',
@@ -175,3 +180,5 @@ export const LineChart = ({ chartData, type, dateType }: prop) => {
     </div>
   )
 }
+
+export default LineChart

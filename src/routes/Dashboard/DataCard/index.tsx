@@ -1,13 +1,14 @@
 import { useRecoilValue } from 'recoil'
 import dayjs from 'dayjs'
 import { cx } from 'styles'
-import styles from './dashboard.module.scss'
+import styles from './dataCard.module.scss'
 
 import { ArrowIcon } from 'assets/svgs'
 import { getMinus } from 'utils/num'
 
-import { dateRangeState } from './states'
-import { getValueString, getDays, getTotalValue } from './cardUtils'
+import { getDays } from '../utils/chartUtils'
+import { dateRangeState } from '../states'
+import { getCardValueString, getTotalValue } from '../utils/cardUtils'
 
 interface Props {
   title: string
@@ -23,8 +24,8 @@ const DataCard = ({ title }: Props) => {
   const previousValue = getTotalValue(previousDateRange, title)
   const comparison = getMinus(currentValue, previousValue)
 
-  const valueString = getValueString(currentValue, title)
-  const comparisonString = getValueString(comparison, title)
+  const valueString = getCardValueString(currentValue, title)
+  const comparisonString = getCardValueString(comparison, title)
 
   return (
     <li className={styles.dataCard}>
