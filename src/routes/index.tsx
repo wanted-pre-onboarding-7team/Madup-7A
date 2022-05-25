@@ -4,14 +4,14 @@ import Layout from './_shared/Layout'
 
 const DashBoard = lazy(async () => {
   await new Promise((resolve) => {
-    setTimeout(resolve, 1000)
+    setTimeout(resolve, 2000)
   })
   return import('./Dashboard')
 })
 
 const AdsManage = lazy(async () => {
   await new Promise((resolve) => {
-    setTimeout(resolve, 1000)
+    setTimeout(resolve, 2000)
   })
   return import('./AdsManage')
 })
