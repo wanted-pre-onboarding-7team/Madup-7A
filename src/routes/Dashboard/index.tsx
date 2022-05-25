@@ -1,7 +1,7 @@
 import styles from './dashboard.module.scss'
 
 import MediaTable from './MediaStatus/MediaTable'
-import TotalAdsChart from './TotalAdsChart'
+import TotalAdsChart from './IntegratedAdsChart'
 import DataCard from './DataCard'
 import DateInput from './DateInput'
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import dayjs from 'dayjs'
-import styles from './totalAdsChart.module.scss'
+import styles from './integratedAdsChart.module.scss'
 
 import TREND_DATA from 'assets/data/wanted_FE_trend-data-set.json'
 import { IDaily } from 'types/trend'
