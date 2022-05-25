@@ -1,14 +1,14 @@
 import { useRecoilValue } from 'recoil'
 import dayjs from 'dayjs'
 import { cx } from 'styles'
-import styles from './dashboard.module.scss'
+import styles from './dataCard.module.scss'
 
 import { ArrowIcon } from 'assets/svgs'
 import { getMinus } from 'utils/num'
 
-import { getDays } from './utils'
-import { dateRangeState } from './states'
-import { getCardValueString, getTotalValue } from './cardUtils'
+import { getDays } from '../utils'
+import { dateRangeState } from '../states'
+import { getCardValueString, getTotalValue } from '../cardUtils'
 
 interface Props {
   title: string
