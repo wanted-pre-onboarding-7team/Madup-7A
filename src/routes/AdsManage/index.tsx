@@ -3,8 +3,9 @@ import styles from './adsManage.module.scss'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, adStatusFilter } from './state/adList'
 
-import AdsCard from './AdsCard'
+import AdCard from './_shared/AdCard'
 import Dropdown from 'components/Dropdown'
+import Button from './_shared/Button'
 
 const LIST = [
   {
@@ -42,13 +43,13 @@ const AdsManage = () => {
           <div className={styles.dropdownBox}>
             <Dropdown list={LIST} size='small' onClick={handleStatusClick} />
           </div>
-          <button type='button' className={`${styles.buttonCommon} ${styles.createButton}`}>
+          <Button size='large' primary>
             광고 만들기
-          </button>
+          </Button>
         </div>
         <div className={styles.cardsWrapper}>
           {AD_DATA_LIST.map((data) => (
-            <AdsCard key={`ad-data-${data.id}`} data={data} />
+            <AdCard key={`ad-data-${data.id}`} data={data} />
           ))}
         </div>
       </div>
