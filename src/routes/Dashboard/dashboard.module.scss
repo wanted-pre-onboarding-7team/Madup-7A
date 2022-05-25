@@ -56,6 +56,20 @@
         align-self: flex-end;
         font-size: 12px;
 
+        svg {
+          path {
+            fill: colors.$ARROW_DECREASE;
+          }
+        }
+
+        .increased {
+          transform: rotate(-180deg);
+
+          path {
+            fill: colors.$ARROW_INCREASE;
+          }
+        }
+
         span {
           margin-left: 5px;
           color: colors.$TEXT_SECONDARY;
