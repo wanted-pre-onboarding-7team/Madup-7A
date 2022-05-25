@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import { IDaily, IChart, menu } from 'types/trend'
 import BigNumber from 'bignumber.js'
+import { getPlus } from 'utils/num'
 
 const Num = (n: string | number, b?: number | undefined): BigNumber => {
   if (typeof n === 'string') {
@@ -23,6 +24,9 @@ export const getDays = ([startDate, stopDate]: string[]): string[] => {
 
 export const getDates = ([startDate, stopDate]: string[]): dayjs.Dayjs[] => {
   const dateArray = []
+
+  if (stopDate === undefined) return [dayjs(stopDate)]
+
   let currentDate = dayjs(startDate)
   const lastDate = dayjs(stopDate)
   while (currentDate <= lastDate) {
@@ -88,7 +92,18 @@ export const ChangeText = (value: number, type: string) => {
   return reulst
 }
 
-const isMenu = (element: menu, value: string) => {
+export const isMenu = (element: menu, value: string) => {
   if (element.value === value) return false
   return true
+}
+
+export const ChartYsum = (obj: IChart[]) => {
+  if (obj.length === 0) return -9999
+  const sum = obj
+    .map((item) => {
+      return item.y
+    })
+    .reduce((prev, cur) => getPlus(prev, cur), 0)
+
+  return sum
 }

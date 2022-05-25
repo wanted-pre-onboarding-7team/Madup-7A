@@ -18,23 +18,3 @@ export const dateFilterState = atom<string>({
   key: '#dateFilterState',
   default: 'day',
 })
-
-// export const firstChartDataState = atom<IChart[] | []>({
-//   key: '#firstChartDataState',
-//   default: [],
-// })
-
-// export const secondChartDataState = atom<IChart[] | []>({
-//   key: '#secondChartDataState',
-//   default: [],
-// })
-
-// export const totalChartDataState = selector({
-//   key: '#totalChartDataState',
-//   get: ({ get }) => {
-//     const firstChartValue = get(firstChartDataState)
-//     const secondChartValue = get(secondChartDataState)
-
-//     return [firstChartValue, secondChartValue]
-//   },
-// })
