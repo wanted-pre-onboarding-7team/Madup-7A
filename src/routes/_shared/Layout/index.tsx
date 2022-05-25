@@ -3,6 +3,7 @@ import styles from './layout.module.scss'
 
 import GNB from '../GNB'
 import Header from '../Header'
+import { Suspense } from 'react'
 
 const Layout = () => {
   return (
@@ -14,9 +15,11 @@ const Layout = () => {
         <header className={styles.header}>
           <Header />
         </header>
-        <main className={styles.main}>
-          <Outlet />
-        </main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <main className={styles.main}>
+            <Outlet />
+          </main>
+        </Suspense>
       </div>
     </div>
   )

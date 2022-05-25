@@ -1,8 +1,20 @@
 import { Route, Routes } from 'react-router-dom'
-
+import { lazy } from 'react'
 import Layout from './_shared/Layout'
-import DashBoard from './Dashboard'
-import AdsManage from './AdsManage'
+
+const DashBoard = lazy(async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000)
+  })
+  return import('./Dashboard')
+})
+
+const AdsManage = lazy(async () => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000)
+  })
+  return import('./AdsManage')
+})
 
 const App = () => {
   return (
