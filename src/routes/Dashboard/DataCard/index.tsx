@@ -6,9 +6,9 @@ import styles from './dataCard.module.scss'
 import { ArrowIcon } from 'assets/svgs'
 import { getMinus } from 'utils/num'
 
-import { getDays } from '../utils'
+import { getDays } from '../utils/chartUtils'
 import { dateRangeState } from '../states'
-import { getCardValueString, getTotalValue } from '../cardUtils'
+import { getCardValueString, getTotalValue } from '../utils/cardUtils'
 
 interface Props {
   title: string
