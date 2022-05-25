@@ -3,11 +3,12 @@
 
 .title {
   @include container.dataTitle;
+  font-weight: 900;
 }
 
 .cardsContainer {
-  height: auto;
   @include container.dataContainer;
+  height: auto;
   background-color: colors.$BG_WHITE;
 
   .cardsHeader {
