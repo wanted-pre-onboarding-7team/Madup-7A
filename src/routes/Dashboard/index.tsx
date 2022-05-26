@@ -24,11 +24,11 @@ const Dashboard = () => {
         </ul>
         <IntegratedAdsChart />
       </section>
-      <div className={styles.container}>
-        <h2 className={styles.subTitle}>매체현황</h2>
+      <h2 className={styles.subTitle}>매체현황</h2>
+      <section className={styles.mediaStatus}>
         <MediaChart />
         <MediaTable />
-      </div>
+      </section>
     </>
   )
 }

@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
-import { dateRangeState } from 'routes/Dashboard/states'
 import {
   VictoryAxis,
   VictoryBar,
@@ -10,15 +9,15 @@ import {
   VictoryTooltip,
   VictoryLegend,
 } from 'victory'
-import CHART_STYLE from './chartStyls'
-import { filterData } from '../MediaTable/cardUtils'
-import { channelGroupBy, valueGroupBy } from '../MediaTable/groupBy'
-import MediaChartData from './medaichartdata'
+import CHART_STYLE from './chartStyles'
+
+import { dateRangeState } from 'routes/Dashboard/states'
+import { channelGroupBy, valueGroupBy } from 'routes/Dashboard/utils/tableUtils'
+import MediaChartData from './mediaChartData'
 
 const MediaChart = () => {
   const date = useRecoilValue(dateRangeState)
-  const filteredData = filterData(date)
-  const channelGroup = channelGroupBy(filteredData, 'channel')
+  const channelGroup = channelGroupBy(date, 'channel')
 
   const chart = useMemo(
     () => Object.keys(channelGroup).map((media) => valueGroupBy(channelGroup[media])),
@@ -85,7 +84,6 @@ const MediaChart = () => {
           }}
         />
         <VictoryAxis
-          tickFormat={['매출', '광고비', '노출 수', '클릭 수', '전환 수']}
           style={{
             grid: { stroke: 'none' },
             ticks: { size: 0, stroke: 'none' },
