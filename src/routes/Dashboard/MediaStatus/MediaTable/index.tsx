@@ -45,7 +45,7 @@ const MediaTable = () => {
   }, [dateRange])
 
   return (
-    <section className={styles.tableWrap}>
+    <div className={styles.tableWrap}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -81,7 +81,7 @@ const MediaTable = () => {
           </tr>
         </tfoot>
       </table>
-    </section>
+    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { useRecoilValue } from 'recoil'
 import {
   VictoryAxis,
   VictoryBar,
@@ -11,20 +10,9 @@ import {
 } from 'victory'
 import CHART_STYLE from './chartStyles'
 
-import { dateRangeState } from 'routes/Dashboard/states'
-import { channelGroupBy, valueGroupBy } from 'routes/Dashboard/utils/tableUtils'
 import MediaChartData from './mediaChartData'
 
 const MediaChart = () => {
-  const date = useRecoilValue(dateRangeState)
-  const channelGroup = channelGroupBy(date, 'channel')
-
-  const chart = useMemo(
-    () => Object.keys(channelGroup).map((media) => valueGroupBy(channelGroup[media])),
-    [channelGroup]
-  )
-  // console.log(chart)
-
   const { google, facebook, naver, kakao } = MediaChartData()
   const dataList = useMemo(() => {
     return [

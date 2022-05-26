@@ -74,4 +74,4 @@ const getTotalRevenue = (filterdArray: Record<string, IMedia[]>, property: strin
   return totalValue
 }
 
-export { findChannel, channelGroupBy, valueGroupBy, getTotalRevenue }
+export { filterChannelData, findChannel, channelGroupBy, valueGroupBy, getTotalRevenue }
