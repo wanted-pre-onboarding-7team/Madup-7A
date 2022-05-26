@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash'
 
 import { dateRangeState } from '../../states'
 import { filterChannelData, channelGroupBy, getTotalRevenue } from '../../utils/tableUtils'
-import { getDividedBy } from 'utils/num'
+import { getConversion, getDividedBy } from 'utils/num'
 
 const MediaChartData = () => {
   const date = useRecoilValue(dateRangeState)
@@ -45,7 +45,7 @@ const MediaChartData = () => {
       data[channel].find(({ category }) => category === '광고비')!.value += cost
       data[channel].find(({ category }) => category === '노출수')!.value += imp
       data[channel].find(({ category }) => category === '클릭수')!.value += click
-      data[channel].find(({ category }) => category === '전환수')!.value += cvr
+      data[channel].find(({ category }) => category === '전환수')!.value += getConversion(click, cvr)
     })
 
     mediaNames.forEach((name) => {

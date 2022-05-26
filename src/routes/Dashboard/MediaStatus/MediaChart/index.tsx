@@ -30,7 +30,7 @@ const MediaChart = () => {
           key={`${id}-${data}`}
           data={data}
           {...CHART_STYLE.bar}
-          labels={({ datum }) => `${datum.value}`}
+          labels={({ datum }) => `${datum.value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`}
           labelComponent={
             <VictoryTooltip
               style={{ fill: 'white', fontSize: 14, textAnchor: 'middle' }}
