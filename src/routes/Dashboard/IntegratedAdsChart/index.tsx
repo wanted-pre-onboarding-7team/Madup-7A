@@ -13,7 +13,7 @@ import { dateRangeState, firstFilterState, sencondFilterState, dateFilterState }
 import LineChart from './LineChart'
 import Dropdown from 'components/Dropdown'
 
-const TotalAdsChart = () => {
+const IntegratedAdsChart = () => {
   const rowChartData: IDaily[] = TREND_DATA.report.daily
   const dateRange = useRecoilValue(dateRangeState)
   const selectedDate = getDays(dateRange)
@@ -96,4 +96,4 @@ const TotalAdsChart = () => {
   )
 }
 
-export default TotalAdsChart
+export default IntegratedAdsChart

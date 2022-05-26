@@ -34,10 +34,7 @@ const MediaTable = () => {
   }, [])
 
   const tableBody = useMemo(
-    () =>
-      Object.keys(channelGroup).map((media) => {
-        return valueGroupBy(channelGroup[media])
-      }),
+    () => Object.keys(channelGroup).map((media) => valueGroupBy(channelGroup[media])),
     [channelGroup]
   )
 

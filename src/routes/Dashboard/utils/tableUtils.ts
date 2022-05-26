@@ -44,13 +44,10 @@ const valueGroupBy = (objectArray: IMedia[]) => {
     imp: 0,
     click: 0,
     cost: 0,
-    convValue: 0,
     ctr: 0,
     cvr: 0,
     cpc: 0,
-    cpa: 0,
     roas: 0,
-    revenue: 0,
   }
 
   const media2 = objectArray.reduce((acc, item) => {
@@ -77,4 +74,4 @@ const getTotalRevenue = (filterdArray: Record<string, IMedia[]>, property: strin
   return totalValue
 }
 
-export { findChannel, channelGroupBy, valueGroupBy, getTotalRevenue }
+export { filterChannelData, findChannel, channelGroupBy, valueGroupBy, getTotalRevenue }

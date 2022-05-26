@@ -1,9 +1,10 @@
 import styles from './dashboard.module.scss'
 
-import MediaTable from './MediaStatus/MediaTable'
-import TotalAdsChart from './IntegratedAdsChart'
 import DataCard from './DataCard'
 import DateInput from './DateInput'
+import IntegratedAdsChart from './IntegratedAdsChart'
+import MediaChart from './MediaStatus/MediaChart'
+import MediaTable from './MediaStatus/MediaTable'
 
 const DATA_CARD_TITLE = ['ROAS', '광고비', '노출수', '클릭수', '전환수', '매출']
 
@@ -21,10 +22,11 @@ const Dashboard = () => {
             <DataCard key={`data-card-${title}`} title={title} />
           ))}
         </ul>
-        <TotalAdsChart />
+        <IntegratedAdsChart />
       </section>
       <h2 className={styles.subTitle}>매체현황</h2>
       <section className={styles.mediaStatus}>
+        <MediaChart />
         <MediaTable />
       </section>
     </>

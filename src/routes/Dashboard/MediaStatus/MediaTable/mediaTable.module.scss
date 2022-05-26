@@ -2,6 +2,7 @@
 
 .tableWrap {
   position: relative;
+  margin-top: 80px;
   overflow-x: scroll;
   font-size: 12px;
 
@@ -25,17 +26,6 @@
 
     .tableFoot {
       color: colors.$PRIMARY;
-    }
-
-    &::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: none;
-      width: 120px;
-      height: 300px;
-      content: '';
-      background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0%) 100%);
     }
 
     td,
